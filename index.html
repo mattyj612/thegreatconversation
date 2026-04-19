@@ -35,8 +35,8 @@
       position: sticky;
       top: 0;
       height: 100vh;
-      padding: 4.5vw;
-      border-right: 1px solid var(--line);
+      padding: 0;
+      border-left: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -44,19 +44,17 @@
     }
 
     .poster-art {
-      width: min(34vw, 580px);
-      aspect-ratio: 2 / 3;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      background: #050505;
+      background: #000;
     }
 
     .poster-art img {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
     }
 
@@ -94,14 +92,16 @@
 
     @media (max-width: 900px) {
       .layout {
-        display: block;
+        display: flex;
+        flex-direction: column;
       }
 
       .poster {
+        order: 1;
         position: relative;
         height: auto;
         min-height: 100svh;
-        border-right: 0;
+        border-left: 0;
         padding: 0;
         display: grid;
         place-items: center;
@@ -118,6 +118,7 @@
       }
 
       .essay {
+        order: 2;
         position: relative;
         margin-top: -20svh;
         z-index: 2;
@@ -139,12 +140,6 @@
 </head>
 <body>
   <main class="layout">
-    <section class="poster" aria-label="Poster">
-      <div class="poster-art">
-        <img src="poster.png" alt="The Great Conversation poster">
-      </div>
-    </section>
-
     <section class="essay" aria-label="Essay">
       <article>
         <!-- <p class="eyebrow">Essay</p> -->
@@ -157,7 +152,7 @@
           We are told we should maximize our agency and “just do things.” But how do we know which things are worth doing?
         </p>
         <p>
-          This question cannot be answered by moving fast. It requires us to meet our ancestors—the thinkers, 
+          This question cannot be answered by moving fast. It requires us to tune into something larger than ourselves. It requires us to meet our ancestors&mdash;the thinkers, 
           tinkerers, and misfits whose names we might never know, but whose work made ours possible. We are all part of something bigger than ourselves; inheritors of a grand tradition.
         </p>
         <p>
@@ -183,6 +178,12 @@
           But knowledge lies in the builder, not the building. 
         </p>
       </article>
+    </section>
+
+    <section class="poster" aria-label="Poster">
+      <div class="poster-art">
+        <img src="poster.png" alt="The Great Conversation poster">
+      </div>
     </section>
   </main>
 </body>
