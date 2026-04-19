@@ -46,54 +46,18 @@
     .poster-art {
       width: min(34vw, 580px);
       aspect-ratio: 2 / 3;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background:
-        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.18), transparent 32%),
-        radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.12), transparent 34%),
-        linear-gradient(135deg, #0f0f0f 0%, #000000 55%, #121212 100%);
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding: 2.2rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
-      isolation: isolate;
+      overflow: hidden;
+      background: #050505;
     }
 
-    .poster-art::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          transparent 0,
-          transparent 16px,
-          rgba(255, 255, 255, 0.03) 17px
-        );
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    .poster-copy {
-      position: relative;
-      z-index: 1;
-    }
-
-    .poster-kicker {
+    .poster-art img {
       display: block;
-      color: var(--muted);
-      font-size: 0.72rem;
-      margin-bottom: 0.65rem;
-    }
-
-    .poster-title {
-      margin: 0;
-      font-size: clamp(1.2rem, 2vw, 1.9rem);
-      line-height: 1.1;
-      max-width: 12ch;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
     .essay {
@@ -177,43 +141,46 @@
   <main class="layout">
     <section class="poster" aria-label="Poster">
       <div class="poster-art">
-        <div class="poster-copy">
-          <span class="poster-kicker">The Great Conversation</span>
-          <h2 class="poster-title">Meaning is made in dialogue.</h2>
-        </div>
+        <img src="poster.png" alt="The Great Conversation poster">
       </div>
     </section>
 
     <section class="essay" aria-label="Essay">
       <article>
-        <p class="eyebrow">Essay</p>
-        <h1>The Conversation That Refuses to End</h1>
+        <!-- <p class="eyebrow">Essay</p> -->
+        <h1>The Great Conversation</h1>
 
         <p>
-          Every era believes it is the loudest, the fastest, the final draft of human attention.
-          But long before feeds and timelines, we were already practicing the same ritual:
-          gathering in uncertainty, listening for meaning, and answering one another with the
-          fragile courage of language.
+          Within each of us there is a drive to do extraordinary things and move the human project forward.
         </p>
         <p>
-          A conversation is not a transaction. It is a wager. We risk revision in front of another
-          mind and call that vulnerability intelligence. We discover what we think only after hearing
-          what we are willing to say, and we discover who we are only after someone responds.
+          We are told we should maximize our agency and “just do things.” But how do we know which things are worth doing?
         </p>
         <p>
-          The future will not be built by people who win arguments in private. It will be built by
-          people who can remain present in public complexity, who can hold conviction without
-          calcifying into certainty, and who can ask a better question even when they already have
-          a popular answer.
+          This question cannot be answered by moving fast. It requires us to meet our ancestors—the thinkers, 
+          tinkerers, and misfits whose names we might never know, but whose work made ours possible. We are all part of something bigger than ourselves; inheritors of a grand tradition.
         </p>
         <p>
-          This is the great conversation: not consensus, not noise, but a disciplined openness that
-          turns isolation into shared orientation. Its tempo is slower than outrage and deeper than
-          performance. It does not promise comfort. It promises contact.
+          Technology is the process of turning ideas into tools. 
+          Ideas are not simply born, they emerge from dialogue about what it means to be human.
         </p>
         <p>
-          We inherit this conversation unfinished. Our task is not to conclude it but to elevate it,
-          sentence by sentence, relation by relation, until clarity becomes a common good.
+          You have been part of this conversation your entire life. You just haven't been formally introduced.
+        </p>
+        <p>
+          On May 27th, we invite you to step into this tradition.
+        </p>
+        <p>
+          The Toronto Society, supported by Notion, Wealthsimple, Ada, Ambrook, and GPTZero, presents <b>The Great Conversation</b>
+        </p>
+        <p>
+          The history of technology has been told inside-out. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, 
+          but the true innovation is within ourselves: the technologists who discover, enact, and transmit knowledge between generations. And technologists do not merely build; we use the things we build to shape the world around us, 
+          through politics, media, medicine, culture, finance, and beyond. 
+        </p>
+        <p>
+          We focus on the tools because that's what we can most readily see. 
+          But knowledge lies in the builder, not the building. 
         </p>
       </article>
     </section>
