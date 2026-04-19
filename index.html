@@ -52,12 +52,8 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background-image: repeating-linear-gradient(
-        transparent,
-        transparent 27px,
-        rgba(255,255,255,0.4) 27px,
-        rgba(255,255,255,0.4) 28px
-      );
+      background-image: radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 28px 28px;
       -webkit-mask-image: radial-gradient(circle 160px at var(--mx, -9999px) var(--my, -9999px), black 0%, transparent 100%);
       mask-image: radial-gradient(circle 160px at var(--mx, -9999px) var(--my, -9999px), black 0%, transparent 100%);
     }
@@ -101,14 +97,14 @@
     .essay-intro {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 20px;
       margin-bottom: 40px;
     }
 
     .essay-body {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 20px;
     }
 
     h1 {
@@ -119,6 +115,9 @@
       line-height: 0.85;
       letter-spacing: -0.03em;
       text-align: left;
+      visibility: hidden;
+      height: 0;
+      overflow: hidden;
     }
 
     h1 .word {
@@ -127,7 +126,7 @@
 
     p {
       margin: 0;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1.6;
       letter-spacing: -0.03em;
       color: #ededed;
@@ -137,6 +136,9 @@
 
     p.quote {
       font-size: 16px;
+      font-style: italic;
+      text-align: center;
+      max-width: none;
     }
 
     @media (max-width: 900px) {
@@ -194,15 +196,13 @@
           <span class="word">Conversation</span>
         </h1>
         <p class="quote">
-          "Within each of us there is a drive<br>
-          to do extraordinary things and<br>
-          move the human project forward."
+          Within each of us there is a drive to move the human project forward. We are told to maximize our agency, to "just do things." But how do we know which things are worth doing?
         </p>
       </div>
 
       <div class="essay-body">
         <p>
-          We are told to maximize our agency, to "just do things." But how do we know which things are worth doing? We have been telling the story of technology backwards. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, but tools are merely the image of their creators. The point is people: what they know, who they learned it from, and what they chose to do with the power that knowledge gave them.
+          We have been telling the story of technology backwards. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, but tools are merely the image of their creators. The point is people: what they know, who they learned it from, and what they chose to do with the power that knowledge gave them.
         </p>
         <p>
           And you are one of them.
@@ -211,7 +211,10 @@
           As a technologist, you are the inheritor of a tradition. This tradition is a grand swirling conversation across generations of what it means to be human. To be a technologist is to have a theory of what it means to be human, and to make that theory concrete through the craft of engineering and design.
         </p>
         <p>
-          Technologists do not merely build; we use the things we build to shape the world around us, through politics, media, medicine, culture, finance, and beyond. You owe it to yourself to meet your ancestors&mdash;the thinkers, tinkerers, and misfits whose ideas influence yours, whether you are aware of it or not, and whose work made yours possible.
+          And technologists do not merely build; we use the things we build to shape the world around us, through politics, media, medicine, culture, finance, and beyond.
+        </p>
+        <p>
+          You owe it to yourself to tap into this tradition. To meet your ancestors&mdash;the thinkers, tinkerers, and misfits whose ideas influence yours, whether you are aware of their influence or not, and whose work made yours possible. This great conversation is a source of guidance, but even more, it helps you see yourself as a historic actor; not just the experiencer of the world, but a part of the great tradition of shaping it.
         </p>
         <p>
           Our best resource for this self-understanding is history&mdash;the archive of our collective triumphs, failures, and learnings over the millenia. We have a particular responsibility to understand our history as Canadians, the inheritors of a unique and rarely discussed technological inheritance.
@@ -220,13 +223,7 @@
           We are all part of something bigger than ourselves. It is a conversation that stretches across millenia and collectively enables us to shape the world.
         </p>
         <p>
-          You have been part of this conversation your entire life. You just haven't been formally introduced.
-        </p>
-        <p>
-          We are historic actors; not mere experiencers of the world, but a part of the grand tradition of shaping it.
-        </p>
-        <p>
-          Connect to the source of ideas that shape the world, in so doing, find yourself shaping the world too.
+          You have been part of this conversation your entire life. It's time to be formally introduced.
         </p>
       </div>
     </section>
