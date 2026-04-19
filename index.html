@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Great Conversation</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --fg: #f5f5f5;
+      --muted: #a1a1a1;
+      --line: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .layout {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--bg);
+    }
+
+    .poster {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 4.5vw;
+      border-right: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .poster-art {
+      width: min(34vw, 580px);
+      aspect-ratio: 2 / 3;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.18), transparent 32%),
+        radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.12), transparent 34%),
+        linear-gradient(135deg, #0f0f0f 0%, #000000 55%, #121212 100%);
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 2.2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+      isolation: isolate;
+    }
+
+    .poster-art::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 16px,
+          rgba(255, 255, 255, 0.03) 17px
+        );
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .poster-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .poster-kicker {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .poster-title {
+      margin: 0;
+      font-size: clamp(1.2rem, 2vw, 1.9rem);
+      line-height: 1.1;
+      max-width: 12ch;
+    }
+
+    .essay {
+      padding: 10vh 8vw 16vh;
+    }
+
+    .essay article {
+      max-width: 66ch;
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 1.3rem;
+    }
+
+    h1 {
+      margin: 0 0 2rem;
+      font-size: clamp(1.8rem, 3.6vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+    }
+
+    p {
+      margin: 0 0 1.35rem;
+      font-size: clamp(1rem, 1.18vw, 1.16rem);
+      line-height: 1.85;
+      color: #ededed;
+      text-wrap: pretty;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        display: block;
+      }
+
+      .poster {
+        position: relative;
+        height: auto;
+        min-height: 100svh;
+        border-right: 0;
+        padding: 0;
+        display: grid;
+        place-items: center;
+      }
+
+      .poster-art {
+        width: 100vw;
+        max-width: 100vw;
+        aspect-ratio: 1 / 1;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        padding: 1.7rem;
+      }
+
+      .essay {
+        position: relative;
+        margin-top: -20svh;
+        z-index: 2;
+        padding: 2.2rem 1.35rem 20svh;
+      }
+
+      .essay article {
+        background: rgba(0, 0, 0, 0.88);
+        border: 1px solid var(--line);
+        padding: 1.4rem 1.1rem 1.25rem;
+        backdrop-filter: blur(8px);
+      }
+
+      h1 {
+        margin-bottom: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="layout">
+    <section class="poster" aria-label="Poster">
+      <div class="poster-art">
+        <div class="poster-copy">
+          <span class="poster-kicker">The Great Conversation</span>
+          <h2 class="poster-title">Meaning is made in dialogue.</h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="essay" aria-label="Essay">
+      <article>
+        <p class="eyebrow">Essay</p>
+        <h1>The Conversation That Refuses to End</h1>
+
+        <p>
+          Every era believes it is the loudest, the fastest, the final draft of human attention.
+          But long before feeds and timelines, we were already practicing the same ritual:
+          gathering in uncertainty, listening for meaning, and answering one another with the
+          fragile courage of language.
+        </p>
+        <p>
+          A conversation is not a transaction. It is a wager. We risk revision in front of another
+          mind and call that vulnerability intelligence. We discover what we think only after hearing
+          what we are willing to say, and we discover who we are only after someone responds.
+        </p>
+        <p>
+          The future will not be built by people who win arguments in private. It will be built by
+          people who can remain present in public complexity, who can hold conviction without
+          calcifying into certainty, and who can ask a better question even when they already have
+          a popular answer.
+        </p>
+        <p>
+          This is the great conversation: not consensus, not noise, but a disciplined openness that
+          turns isolation into shared orientation. Its tempo is slower than outrage and deeper than
+          performance. It does not promise comfort. It promises contact.
+        </p>
+        <p>
+          We inherit this conversation unfinished. Our task is not to conclude it but to elevate it,
+          sentence by sentence, relation by relation, until clarity becomes a common good.
+        </p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
