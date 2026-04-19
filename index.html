@@ -4,7 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Great Conversation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300&family=Over+the+Rainbow&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: "BDO Grotesk";
+      src: url("BDOGrotesk-Medium.ttf") format("truetype");
+      font-weight: 500;
+    }
+
     :root {
       --bg: #000000;
       --fg: #f5f5f5;
@@ -14,6 +22,20 @@
 
     * {
       box-sizing: border-box;
+      cursor: url('cursor.svg'), auto;
+    }
+
+    ::selection {
+      background: #0F2BEC;
+      color: #fff;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      scrollbar-width: none;
     }
 
     html,
@@ -21,30 +43,45 @@
       margin: 0;
       background: var(--bg);
       color: var(--fg);
-      font-family: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+    }
+
+    .dot-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent 27px,
+        rgba(255,255,255,0.4) 27px,
+        rgba(255,255,255,0.4) 28px
+      );
+      -webkit-mask-image: radial-gradient(circle 160px at var(--mx, -9999px) var(--my, -9999px), black 0%, transparent 100%);
+      mask-image: radial-gradient(circle 160px at var(--mx, -9999px) var(--my, -9999px), black 0%, transparent 100%);
     }
 
     .layout {
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background: var(--bg);
     }
 
     .poster {
       position: sticky;
       top: 0;
       height: 100vh;
-      padding: 0;
+      padding: 0 0 40px 40px;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: flex-end;
+      justify-content: flex-start;
       overflow: hidden;
     }
 
     .poster-art {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 40px);
       overflow: hidden;
       background: #000;
     }
@@ -58,35 +95,48 @@
     }
 
     .essay {
-      padding: 10vh 8vw 16vh;
+      padding: 25vh 8vw 16vh;
     }
 
-    .essay article {
-      max-width: 66ch;
+    .essay-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-bottom: 40px;
     }
 
-    .eyebrow {
-      font-size: 0.75rem;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 0 0 1.3rem;
+    .essay-body {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
     }
 
     h1 {
-      margin: 0 0 2rem;
-      font-size: clamp(1.8rem, 3.6vw, 3.2rem);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-      text-wrap: balance;
+      margin: 0;
+      font-family: "BDO Grotesk", sans-serif;
+      font-weight: 500;
+      font-size: clamp(1.5rem, 3vw, 2.6rem);
+      line-height: 0.85;
+      letter-spacing: -0.03em;
+      text-align: left;
+    }
+
+    h1 .word {
+      display: block;
     }
 
     p {
-      margin: 0 0 1.35rem;
-      font-size: clamp(1rem, 1.18vw, 1.16rem);
-      line-height: 1.85;
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.6;
+      letter-spacing: -0.03em;
       color: #ededed;
       text-wrap: pretty;
+      max-width: 66ch;
+    }
+
+    p.quote {
+      font-size: 16px;
     }
 
     @media (max-width: 900px) {
@@ -99,90 +149,102 @@
         order: 1;
         position: relative;
         height: auto;
-        min-height: 100svh;
-        padding: 0;
-        display: grid;
-        place-items: center;
+        padding: 20px 1.35rem 0;
       }
 
       .poster-art {
-        width: 100vw;
-        max-width: 100vw;
+        width: 100%;
         aspect-ratio: 1 / 1;
-        border-left: 0;
-        border-right: 0;
-        border-top: 0;
-        padding: 1.7rem;
+        height: auto;
       }
 
       .essay {
         order: 2;
         position: relative;
-        margin-top: -20svh;
-        z-index: 2;
-        padding: 2.2rem 1.35rem 20svh;
+        padding: 0 1.35rem;
       }
 
-      .essay article {
-        background: rgba(0, 0, 0, 0.88);
-        border: 1px solid var(--line);
-        padding: 1.4rem 1.1rem 1.25rem;
-        backdrop-filter: blur(8px);
+      .essay-intro {
+        min-height: auto;
+        padding: 2.2rem 0 0;
       }
 
-      h1 {
-        margin-bottom: 1.3rem;
+      .essay-body {
+        padding-bottom: 20svh;
       }
     }
   </style>
 </head>
 <body>
-  <main class="layout">
+  <div class="dot-grid"></div>
+  <main class="layout" style="position:relative;z-index:1;">
     <section class="essay" aria-label="Essay">
-      <article>
-        <!-- <p class="eyebrow">Essay</p> -->
-        <h1>The Great Conversation</h1>
+      <div class="essay-intro">
+        <h1>
+          <span class="word">The</span>
+          <span class="word">Great</span>
+          <span class="word">Conversation</span>
+        </h1>
+        <p class="quote">
+          "Within each of us there is a drive<br>
+          to do extraordinary things and<br>
+          move the human project forward."
+        </p>
+      </div>
 
+      <div class="essay-body">
         <p>
-          Within each of us there is a drive to do extraordinary things and move the human project forward.
+          We are told to maximize our agency, to "just do things." But how do we know which things are worth doing? We have been telling the story of technology backwards. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, but tools are merely the image of their creators. The point is people: what they know, who they learned it from, and what they chose to do with the power that knowledge gave them.
         </p>
         <p>
-          We are told we should maximize our agency and “just do things.” But how do we know which things are worth doing?
+          And you are one of them.
         </p>
         <p>
-          This question cannot be answered by moving fast. It requires us to tune into something larger than ourselves. It requires us to meet our ancestors&mdash;the thinkers, 
-          tinkerers, and misfits whose names we might never know, but whose work made ours possible. We are all part of something bigger than ourselves; inheritors of a grand tradition.
+          As a technologist, you are the inheritor of a tradition. This tradition is a grand swirling conversation across generations of what it means to be human. To be a technologist is to have a theory of what it means to be human, and to make that theory concrete through the craft of engineering and design.
         </p>
         <p>
-          Technology is the process of turning ideas into tools. 
-          Ideas are not simply born, they emerge from dialogue about what it means to be human.
+          Technologists do not merely build; we use the things we build to shape the world around us, through politics, media, medicine, culture, finance, and beyond. You owe it to yourself to meet your ancestors&mdash;the thinkers, tinkerers, and misfits whose ideas influence yours, whether you are aware of it or not, and whose work made yours possible.
+        </p>
+        <p>
+          Our best resource for this self-understanding is history&mdash;the archive of our collective triumphs, failures, and learnings over the millenia. We have a particular responsibility to understand our history as Canadians, the inheritors of a unique and rarely discussed technological inheritance.
+        </p>
+        <p>
+          We are all part of something bigger than ourselves. It is a conversation that stretches across millenia and collectively enables us to shape the world.
         </p>
         <p>
           You have been part of this conversation your entire life. You just haven't been formally introduced.
         </p>
         <p>
-          On May 27th, we invite you to step into this tradition.
+          We are historic actors; not mere experiencers of the world, but a part of the grand tradition of shaping it.
         </p>
         <p>
-          The Toronto Society, supported by Notion, Wealthsimple, Ada, Ambrook, and GPTZero, presents <b>The Great Conversation</b>
+          Connect to the source of ideas that shape the world, in so doing, find yourself shaping the world too.
         </p>
-        <p>
-          The history of technology has been told inside-out. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, 
-          but the true innovation is within ourselves: the technologists who discover, enact, and transmit knowledge between generations. And technologists do not merely build; we use the things we build to shape the world around us, 
-          through politics, media, medicine, culture, finance, and beyond. 
-        </p>
-        <p>
-          We focus on the tools because that's what we can most readily see. 
-          But knowledge lies in the builder, not the building. If we want to understand technology, we must first understand ourselves.
-        </p>
-      </article>
+      </div>
     </section>
 
     <section class="poster" aria-label="Poster">
       <div class="poster-art">
-        <img src="poster.png" alt="The Great Conversation poster">
+        <img src="poster.jpg" alt="The Great Conversation poster">
       </div>
     </section>
   </main>
+  <script>
+    document.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--mx', e.clientX + 'px');
+      document.documentElement.style.setProperty('--my', e.clientY + 'px');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const paras = document.querySelectorAll('.essay-body p');
+      paras.forEach(p => {
+        p.style.opacity = '0';
+        p.style.transition = 'opacity 0.7s ease';
+      });
+      paras.forEach((p, i) => {
+        setTimeout(() => { p.style.opacity = '1'; }, 1500 + i * 500);
+      });
+    });
+  </script>
 </body>
 </html>
