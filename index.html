@@ -62,6 +62,10 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      column-gap: 40px;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
     }
@@ -70,7 +74,7 @@
       position: sticky;
       top: 0;
       height: 100vh;
-      padding: 12vh 0 40px 40px;
+      padding: 12vh 0 40px 30px;
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
@@ -89,11 +93,14 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      object-position: center;
+      object-position: left center;
     }
 
     .essay {
-      padding: 8vh 5vw 16vh;
+      padding: 12vh 0 16vh 6vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
     }
 
     .essay-body {
@@ -106,13 +113,10 @@
       margin: 0;
       font-family: "BDO Grotesk", sans-serif;
       font-weight: 500;
-      font-size: clamp(1.5rem, 3vw, 2.6rem);
+      font-size: clamp(1.5rem, calc(2vw + 1vh), 5rem);
       line-height: 0.85;
       letter-spacing: -0.03em;
       text-align: left;
-      visibility: hidden;
-      height: 0;
-      overflow: hidden;
     }
 
     h1 .word {
@@ -121,19 +125,17 @@
 
     p {
       margin: 0;
-      font-size: 18px;
+      font-size: clamp(18px, calc(0.9vw + 0.5vh), 32px);
       line-height: 1.6;
       letter-spacing: -0.03em;
       color: #ededed;
       text-wrap: pretty;
-      max-width: 66ch;
     }
 
     p.quote {
-      font-size: 16px;
+      font-size: clamp(16px, calc(0.8vw + 0.5vh), 28px);
       font-style: italic;
       text-align: center;
-      max-width: none;
     }
 
     .poster-mobile-end {
@@ -141,6 +143,8 @@
     }
 
     .cta-btn {
+      position: relative;
+      overflow: hidden;
       display: inline-block;
       align-self: flex-start;
       margin-top: 24px;
@@ -155,6 +159,26 @@
       border: none;
       text-decoration: none;
       cursor: url('cursor.svg') 28 28, auto;
+    }
+
+    .cta-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--bx, 50%) var(--by, 50%), rgba(255,255,255,0.55) 0%, transparent 65%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .cta-btn:hover::after {
+      opacity: 1;
+    }
+
+    @media (min-width: 1600px) {
+      .layout {
+        grid-template-columns: 7fr 3fr;
+        max-width: 90vw;
+      }
     }
 
     @media (max-width: 900px) {
@@ -192,8 +216,12 @@
         position: relative;
         z-index: 2;
         background: transparent;
-        padding: 0 1.35rem 65svh;
+        padding: 0 1.35rem 0;
         margin-top: 72svh;
+      }
+
+      h1 {
+        display: none;
       }
 
       .essay-body {
@@ -255,7 +283,7 @@
         <p>
           You have been part of this conversation your entire life. It's time to be formally introduced.
         </p>
-        <a href="#" class="cta-btn">Join the Conversation</a>
+        <a href="https://wygo.world/greatconversation" class="cta-btn">Join the Conversation</a>
         <div class="poster-mobile-end">
           <img src="poster.jpg" alt="The Great Conversation poster">
         </div>
@@ -269,20 +297,14 @@
     </section>
   </main>
   <script>
-    function updatePosterAnchor() {
-      if (window.innerWidth > 900) return;
-      const poster = document.querySelector('.poster');
-      if (!poster) return;
-      if (window.scrollY > window.innerHeight * 0.72) {
-        poster.style.alignItems = 'flex-end';
-        poster.style.padding = '0 1.35rem 20px';
-      } else {
-        poster.style.alignItems = 'flex-start';
-        poster.style.padding = '20px 1.35rem 0';
-      }
+    const btn = document.querySelector('.cta-btn');
+    if (btn) {
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        btn.style.setProperty('--bx', ((e.clientX - r.left) / r.width * 100) + '%');
+        btn.style.setProperty('--by', ((e.clientY - r.top) / r.height * 100) + '%');
+      });
     }
-    window.addEventListener('scroll', updatePosterAnchor, { passive: true });
-    updatePosterAnchor();
 
     document.addEventListener('mousemove', (e) => {
       document.documentElement.style.setProperty('--mx', e.clientX + 'px');
@@ -298,14 +320,15 @@
         setTimeout(() => { quote.style.opacity = '1'; }, 600);
       }
 
-      // Fade in body paragraphs sequentially
+      // Fade in body paragraphs + button sequentially
       const paras = document.querySelectorAll('.essay-body p:not(.quote)');
-      paras.forEach(p => {
-        p.style.opacity = '0';
-        p.style.transition = 'opacity 0.7s ease';
+      const fadeEls = [...paras, ...(btn ? [btn] : [])];
+      fadeEls.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.7s ease';
       });
-      paras.forEach((p, i) => {
-        setTimeout(() => { p.style.opacity = '1'; }, 1500 + i * 500);
+      fadeEls.forEach((el, i) => {
+        setTimeout(() => { el.style.opacity = '1'; }, 1500 + i * 500);
       });
     });
   </script>
