@@ -69,8 +69,6 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      position: relative;
-      z-index: 1;
     }
 
     .poster {
@@ -147,10 +145,6 @@
       max-width: none;
     }
 
-    .poster-mobile-end {
-      display: none;
-    }
-
     .cta-btn {
       position: relative;
       overflow: hidden;
@@ -183,24 +177,19 @@
       opacity: 1;
     }
 
-
     @media (max-width: 900px) {
       .layout {
         display: flex;
         flex-direction: column;
-        position: static;
-        z-index: auto;
       }
 
       .poster {
-        position: fixed;
-        inset: 0;
-        height: 100svh;
-        z-index: 1;
-        display: flex;
-        align-items: flex-start;
-        padding: 20px 1.35rem 0;
+        order: 1;
+        position: relative;
+        display: block;
+        height: auto;
         overflow: visible;
+        padding: 20px 1.35rem 0;
       }
 
       .poster-art {
@@ -216,42 +205,27 @@
       }
 
       .essay {
+        order: 2;
         position: relative;
-        z-index: 2;
-        background: transparent;
-        padding: 0 1.35rem 0;
-        margin-top: 72svh;
+        padding: 0 1.35rem;
       }
 
-      h1 {
-        display: none;
+      .essay-intro {
+        min-height: auto;
+        padding: 2.2rem 0 0;
       }
 
       .essay-body {
-        background: var(--bg);
-        padding: 2rem 1.35rem 2rem;
-        margin: 0 -1.35rem;
-      }
-
-      p.quote {
-        font-size: 18px;
-      }
-
-      p.quote br {
-        display: none;
-      }
-
-      .poster-mobile-end {
-        display: none;
+        padding-bottom: 20svh;
       }
     }
   </style>
 </head>
 <body>
   <div class="dot-grid"></div>
-  <main class="layout">
+  <main class="layout" style="position:relative;z-index:1;">
     <section class="essay" aria-label="Essay">
-      <div class="essay-body">
+      <div class="essay-intro">
         <h1>
           <span class="word">The</span>
           <span class="word">Great</span>
@@ -262,6 +236,9 @@
           We are told to maximize our agency, to "just do things."<br>
           But how do we know which things are worth doing?
         </p>
+      </div>
+
+      <div class="essay-body">
         <p>
           We have been telling the story of technology backwards. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, but these artifacts are the lagging indicators of progress, not the drivers.
         </p>
@@ -287,9 +264,6 @@
           You have been part of this conversation your entire life. It's time to be formally introduced.
         </p>
         <a href="https://wygo.world/greatconversation" class="cta-btn">Join the Conversation</a>
-        <div class="poster-mobile-end">
-          <img src="poster.jpg" alt="The Great Conversation poster">
-        </div>
       </div>
     </section>
 
@@ -315,23 +289,13 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Fade in quote on load
-      const quote = document.querySelector('p.quote');
-      if (quote) {
-        quote.style.opacity = '0';
-        quote.style.transition = 'opacity 0.9s ease';
-        setTimeout(() => { quote.style.opacity = '1'; }, 600);
-      }
-
-      // Fade in body paragraphs + button sequentially
-      const paras = document.querySelectorAll('.essay-body p:not(.quote)');
-      const fadeEls = [...paras, ...(btn ? [btn] : [])];
-      fadeEls.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transition = 'opacity 0.7s ease';
+      const paras = document.querySelectorAll('.essay-body p');
+      paras.forEach(p => {
+        p.style.opacity = '0';
+        p.style.transition = 'opacity 0.7s ease';
       });
-      fadeEls.forEach((el, i) => {
-        setTimeout(() => { el.style.opacity = '1'; }, 1500 + i * 500);
+      paras.forEach((p, i) => {
+        setTimeout(() => { p.style.opacity = '1'; }, 1500 + i * 500);
       });
     });
   </script>
