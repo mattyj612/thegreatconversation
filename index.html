@@ -104,7 +104,7 @@
     .essay-intro {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 40px;
       margin-bottom: 40px;
     }
 
@@ -182,15 +182,19 @@
       .layout {
         display: flex;
         flex-direction: column;
+        position: static;
+        z-index: auto;
       }
 
       .poster {
-        order: 1;
-        position: relative;
-        display: block;
-        height: auto;
-        overflow: visible;
+        position: fixed;
+        inset: 0;
+        height: 100svh;
+        z-index: 1;
+        display: flex;
+        align-items: flex-start;
         padding: 20px 1.35rem 0;
+        overflow: visible;
       }
 
       .poster-art {
@@ -206,14 +210,22 @@
       }
 
       .essay {
-        order: 2;
         position: relative;
-        padding: 0 1.35rem;
+        z-index: 2;
+        padding: 0 1.35rem 0;
+        margin-top: 72svh;
       }
 
       .essay-intro {
-        min-height: auto;
-        padding: 2.2rem 0 0;
+        background: var(--bg);
+        padding: 2rem 1.35rem 0;
+        margin: 0 -1.35rem;
+      }
+
+      .essay-body {
+        background: var(--bg);
+        padding: 1rem 1.35rem 4rem;
+        margin: 0 -1.35rem;
       }
 
       h1 {
@@ -222,10 +234,6 @@
 
       p.quote br {
         display: none;
-      }
-
-      .essay-body {
-        padding-bottom: 20svh;
       }
     }
   </style>
@@ -297,12 +305,13 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const paras = document.querySelectorAll('.essay-body p');
-      paras.forEach(p => {
-        p.style.opacity = '0';
-        p.style.transition = 'opacity 0.7s ease';
+      const fadeEls = [...paras, ...(btn ? [btn] : [])];
+      fadeEls.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.7s ease';
       });
-      paras.forEach((p, i) => {
-        setTimeout(() => { p.style.opacity = '1'; }, 1500 + i * 500);
+      fadeEls.forEach((el, i) => {
+        setTimeout(() => { el.style.opacity = '1'; }, 1500 + i * 500);
       });
     });
   </script>
