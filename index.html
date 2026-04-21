@@ -62,9 +62,7 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      column-gap: 40px;
-      width: 100%;
-      max-width: 1440px;
+      max-width: 1400px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
@@ -74,7 +72,7 @@
       position: sticky;
       top: 0;
       height: 100vh;
-      padding: 12vh 0 40px 30px;
+      padding: 5vh 40px 40px 20px;
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
@@ -83,7 +81,7 @@
 
     .poster-art {
       width: 100%;
-      height: calc(100% - 40px);
+      height: 100%;
       overflow: hidden;
       background: #000;
     }
@@ -93,14 +91,13 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      object-position: left center;
+      object-position: center;
     }
 
     .essay {
-      padding: 12vh 0 16vh 6vw;
+      padding: 12vh 40px 16vh 7vw;
       display: flex;
       flex-direction: column;
-      align-items: stretch;
     }
 
     .essay-body {
@@ -113,7 +110,7 @@
       margin: 0;
       font-family: "BDO Grotesk", sans-serif;
       font-weight: 500;
-      font-size: clamp(1.5rem, calc(2vw + 1vh), 5rem);
+      font-size: clamp(1.5rem, 3vw, 2.6rem);
       line-height: 0.85;
       letter-spacing: -0.03em;
       text-align: left;
@@ -125,15 +122,16 @@
 
     p {
       margin: 0;
-      font-size: clamp(18px, calc(0.9vw + 0.5vh), 32px);
+      font-size: clamp(18px, 1.3vw, 26px);
       line-height: 1.6;
       letter-spacing: -0.03em;
       color: #ededed;
       text-wrap: pretty;
+      max-width: 66ch;
     }
 
     p.quote {
-      font-size: clamp(16px, calc(0.8vw + 0.5vh), 28px);
+      font-size: clamp(16px, 1.3vw, 26px);
       font-style: italic;
       text-align: center;
     }
@@ -174,12 +172,6 @@
       opacity: 1;
     }
 
-    @media (min-width: 1600px) {
-      .layout {
-        grid-template-columns: 7fr 3fr;
-        max-width: 90vw;
-      }
-    }
 
     @media (max-width: 900px) {
       .layout {
@@ -260,25 +252,25 @@
           But how do we know which things are worth doing?
         </p>
         <p>
-          We have been telling the story of technology backwards. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, but tools are merely the image of their creators. The point is people: what they know, who they learned it from, and what they chose to do with the power that knowledge gave them.
+          We have been telling the story of technology backwards. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, but these artifacts are the lagging indicators of progress, not the drivers.
         </p>
         <p>
-          And you are one of them.
+          Tools are the image of their creators. If we are to understand technology, we must begin by understanding technologists.
         </p>
         <p>
-          As a technologist, you are the inheritor of a tradition. This tradition is a grand swirling conversation across generations of what it means to be human. To be a technologist is to have a theory of what it means to be human, and to make that theory concrete through the craft of engineering and design.
+          To be a technologist is to have a theory of what it means to be human, and to make that theory concrete through the craft of engineering and design. To shape the world through politics, media, medicine, culture, finance, and beyond. To be a historic actor; not an experiencer of the world, but a part of the great tradition of shaping it.
         </p>
         <p>
-          And technologists do not merely build; we use the things we build to shape the world around us, through politics, media, medicine, culture, finance, and beyond.
+          You are one of them.
         </p>
         <p>
-          You owe it to yourself to tap into this tradition. To meet your ancestors&mdash;the thinkers, tinkerers, and misfits whose ideas influence yours, whether you are aware of their influence or not, and whose work made yours possible. This great conversation is a source of guidance, but even more, it helps you see yourself as a historic actor; not just the experiencer of the world, but a part of the great tradition of shaping it.
+          As a technologist, you are the inheritor of a tradition, a grand swirling conversation across generations. You owe it to yourself to tap into this tradition and meet your ancestors: the thinkers, tinkerers, and misfits whose ideas influence yours, whether you are aware of their influence or not.
         </p>
         <p>
-          Our best resource for this self-understanding is history&mdash;the archive of our collective triumphs, failures, and learnings over the millenia. We have a particular responsibility to understand our history as Canadians, the inheritors of a unique and rarely discussed technological inheritance.
+          Our best resource for this self-understanding is history&mdash;the archive of our collective triumphs and learnings. We have a particular responsibility to understand our history as Canadians, with a unique technological culture rooted in the fight against a harsh wilderness and the peacetime use of military technologies.
         </p>
         <p>
-          We are all part of something bigger than ourselves. It is a conversation that stretches across millenia and collectively enables us to shape the world.
+          We are all part of something bigger than ourselves: a conversation that stretches across millennia and collectively enables us to transform the world.
         </p>
         <p>
           You have been part of this conversation your entire life. It's time to be formally introduced.
