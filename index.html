@@ -4,12 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Great Conversation</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300&family=Over+the+Rainbow&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: "BDO Grotesk";
       src: url("BDOGrotesk-Medium.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    @font-face {
+      font-family: "PP Neue Montreal";
+      src: url("PPNeueMontreal-Medium.otf") format("opentype");
       font-weight: 500;
     }
 
@@ -98,17 +105,20 @@
       padding: 12vh 40px 16vh 7vw;
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
     }
 
     .essay-body {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 48px;
+      font-size: 18px;
+      max-width: 46ch;
     }
 
     h1 {
       margin: 0;
-      font-family: "BDO Grotesk", sans-serif;
+      font-family: "PP Neue Montreal", sans-serif;
       font-weight: 500;
       font-size: clamp(1.5rem, 3vw, 2.6rem);
       line-height: 0.85;
@@ -127,11 +137,10 @@
       letter-spacing: -0.03em;
       color: #ededed;
       text-wrap: pretty;
-      max-width: 66ch;
     }
 
     p.quote {
-      font-size: clamp(16px, 1.3vw, 26px);
+      font-size: clamp(15px, 1.1vw, 24px);
       font-style: italic;
       text-align: center;
     }
