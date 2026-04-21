@@ -22,7 +22,7 @@
 
     * {
       box-sizing: border-box;
-      cursor: url('cursor.svg'), auto;
+      cursor: url('cursor.svg') 28 28, auto;
     }
 
     ::selection {
@@ -62,15 +62,17 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      position: relative;
+      z-index: 1;
     }
 
     .poster {
       position: sticky;
       top: 0;
       height: 100vh;
-      padding: 0 0 40px 40px;
+      padding: 12vh 0 40px 40px;
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: flex-start;
       overflow: hidden;
     }
@@ -91,14 +93,7 @@
     }
 
     .essay {
-      padding: 25vh 8vw 16vh;
-    }
-
-    .essay-intro {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-bottom: 40px;
+      padding: 8vh 5vw 16vh;
     }
 
     .essay-body {
@@ -141,19 +136,44 @@
       max-width: none;
     }
 
+    .poster-mobile-end {
+      display: none;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 24px;
+      background: #0F2BEC;
+      color: #fff;
+      font-family: "Hanken Grotesk", sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+      padding: 12px 16px;
+      border-radius: 0;
+      border: none;
+      text-decoration: none;
+      cursor: url('cursor.svg') 28 28, auto;
+    }
+
     @media (max-width: 900px) {
       .layout {
         display: flex;
         flex-direction: column;
+        position: static;
+        z-index: auto;
       }
 
       .poster {
-        order: 1;
-        position: relative;
-        display: block;
-        height: auto;
-        overflow: visible;
+        position: fixed;
+        inset: 0;
+        height: 100svh;
+        z-index: 1;
+        display: flex;
+        align-items: flex-start;
         padding: 20px 1.35rem 0;
+        overflow: visible;
       }
 
       .poster-art {
@@ -169,38 +189,48 @@
       }
 
       .essay {
-        order: 2;
         position: relative;
-        padding: 0 1.35rem;
-      }
-
-      .essay-intro {
-        min-height: auto;
-        padding: 2.2rem 0 0;
+        z-index: 2;
+        background: transparent;
+        padding: 0 1.35rem 65svh;
+        margin-top: 72svh;
       }
 
       .essay-body {
-        padding-bottom: 20svh;
+        background: var(--bg);
+        padding: 2rem 1.35rem 2rem;
+        margin: 0 -1.35rem;
+      }
+
+      p.quote {
+        font-size: 18px;
+      }
+
+      p.quote br {
+        display: none;
+      }
+
+      .poster-mobile-end {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
   <div class="dot-grid"></div>
-  <main class="layout" style="position:relative;z-index:1;">
+  <main class="layout">
     <section class="essay" aria-label="Essay">
-      <div class="essay-intro">
+      <div class="essay-body">
         <h1>
           <span class="word">The</span>
           <span class="word">Great</span>
           <span class="word">Conversation</span>
         </h1>
         <p class="quote">
-          Within each of us there is a drive to move the human project forward. We are told to maximize our agency, to "just do things." But how do we know which things are worth doing?
+          Within each of us there is a drive to move the human project forward.<br>
+          We are told to maximize our agency, to "just do things."<br>
+          But how do we know which things are worth doing?
         </p>
-      </div>
-
-      <div class="essay-body">
         <p>
           We have been telling the story of technology backwards. Our tools&mdash;steam engines, silicon chips&mdash;take center stage, but tools are merely the image of their creators. The point is people: what they know, who they learned it from, and what they chose to do with the power that knowledge gave them.
         </p>
@@ -225,6 +255,10 @@
         <p>
           You have been part of this conversation your entire life. It's time to be formally introduced.
         </p>
+        <a href="#" class="cta-btn">Join the Conversation</a>
+        <div class="poster-mobile-end">
+          <img src="poster.jpg" alt="The Great Conversation poster">
+        </div>
       </div>
     </section>
 
@@ -235,13 +269,37 @@
     </section>
   </main>
   <script>
+    function updatePosterAnchor() {
+      if (window.innerWidth > 900) return;
+      const poster = document.querySelector('.poster');
+      if (!poster) return;
+      if (window.scrollY > window.innerHeight * 0.72) {
+        poster.style.alignItems = 'flex-end';
+        poster.style.padding = '0 1.35rem 20px';
+      } else {
+        poster.style.alignItems = 'flex-start';
+        poster.style.padding = '20px 1.35rem 0';
+      }
+    }
+    window.addEventListener('scroll', updatePosterAnchor, { passive: true });
+    updatePosterAnchor();
+
     document.addEventListener('mousemove', (e) => {
       document.documentElement.style.setProperty('--mx', e.clientX + 'px');
       document.documentElement.style.setProperty('--my', e.clientY + 'px');
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-      const paras = document.querySelectorAll('.essay-body p');
+      // Fade in quote on load
+      const quote = document.querySelector('p.quote');
+      if (quote) {
+        quote.style.opacity = '0';
+        quote.style.transition = 'opacity 0.9s ease';
+        setTimeout(() => { quote.style.opacity = '1'; }, 600);
+      }
+
+      // Fade in body paragraphs sequentially
+      const paras = document.querySelectorAll('.essay-body p:not(.quote)');
       paras.forEach(p => {
         p.style.opacity = '0';
         p.style.transition = 'opacity 0.7s ease';
