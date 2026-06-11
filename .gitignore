@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+
+# Large source assets (not needed for the deployed site)
+event_photos/
+artifacts/
+retrospective.pdf
+*.pdf
+testimonials.png
+team_photo.jpeg
+
+# Scratch / working files
+.pdf_preview/
+preview.html
