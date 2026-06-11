@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Great Conversation — A Retrospective</title>
+  <meta name="description" content="A retrospective on The Great Conversation, a lecture by Matthew Jordan. May 27, 2026 — Isabel Bader Theatre, Toronto.">
+  <meta property="og:title" content="The Great Conversation">
+  <meta property="og:description" content="A retrospective on The Great Conversation, a lecture by Matthew Jordan.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thegreatconversation.ca/retrospective/">
+  <meta property="og:image" content="https://thegreatconversation.ca/retro-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Great Conversation">
+  <meta name="twitter:description" content="A retrospective on The Great Conversation, a lecture by Matthew Jordan.">
+  <meta name="twitter:image" content="https://thegreatconversation.ca/retro-cover.jpg">
+  <meta http-equiv="refresh" content="0; url=https://drive.google.com/file/d/1ZOm0N1oUosAF4dueduRCACanJIWplRFQ/view?usp=sharing">
+  <script>
+    window.location.replace("https://drive.google.com/file/d/1ZOm0N1oUosAF4dueduRCACanJIWplRFQ/view?usp=sharing");
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "PP Neue Montreal";
+      src: url("/PPNeueMontreal-Medium.otf") format("opentype");
+      font-weight: 400 600;
+      font-display: swap;
+    }
+    :root {
+      --blue: #0F2BEC;
+      --ink: #07070a;
+      --fg: #f6f6f8;
+      --muted: rgba(246,246,248,0.72);
+      --maxw: 1180px;
+      --pad: clamp(20px, 5vw, 72px);
+    }
+    * { box-sizing: border-box; cursor: url('/cursor.svg') 28 28, auto; }
+    ::selection { background: #fff; color: var(--blue); }
+    ::-webkit-scrollbar { display: none; }
+    html { scrollbar-width: none; }
+    html, body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--fg);
+      font-family: "PP Neue Montreal", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    .masthead {
+      position: relative;
+      background: var(--ink);
+      overflow: hidden;
+    }
+    .masthead-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 44%;
+      z-index: 0;
+      opacity: 0.62;
+    }
+    .masthead::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(7,7,10,0.55) 0%, rgba(7,7,10,0.30) 45%, rgba(7,7,10,0.78) 100%);
+    }
+    .masthead::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(120% 80% at 80% -10%, rgba(15,43,236,0.55), transparent 60%),
+        radial-gradient(80% 60% at 0% 120%, rgba(15,43,236,0.40), transparent 60%);
+      pointer-events: none;
+    }
+    .masthead-inner {
+      position: relative;
+      z-index: 2;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: clamp(48px, 9vw, 120px) var(--pad) clamp(40px, 7vw, 96px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: clamp(40px, 8vw, 90px);
+    }
+    .title-block { max-width: 16ch; }
+    .title-block h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: clamp(2.8rem, 11vw, 8.5rem);
+      line-height: 0.86;
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+    .title-block h1 .ln { display: block; }
+    .title-sub {
+      margin-top: 1.1rem;
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      font-style: normal;
+      font-size: clamp(1.3rem, 3.4vw, 2.6rem);
+      line-height: 1.1;
+      white-space: nowrap;
+      color: var(--fg);
+      letter-spacing: -0.01em;
+      text-indent: 0.4em;
+    }
+    .masthead-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 2.5rem;
+      font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+      letter-spacing: -0.01em;
+      color: var(--muted);
+    }
+    .masthead-meta b { color: var(--fg); font-weight: 600; }
+    .redirect-note {
+      font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+      letter-spacing: -0.01em;
+      color: var(--muted);
+    }
+    .redirect-note a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 760px) {
+      .masthead-inner { min-height: 52vh; gap: clamp(20px, 5vw, 40px); justify-content: flex-end; }
+      .masthead-bg { object-position: center 90%; }
+      .title-sub { text-indent: 0.2em; margin-top: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <img class="masthead-bg" src="/photos/RCL_5205.jpg" alt="" aria-hidden="true">
+    <div class="masthead-inner">
+      <div class="title-block">
+        <h1>
+          <span class="ln">The</span>
+          <span class="ln">Great</span>
+          <span class="ln">Conversation</span>
+        </h1>
+        <div class="title-sub">a lecture by Matthew Jordan</div>
+      </div>
+      <div class="masthead-meta">
+        <p class="redirect-note">
+          Opening the retrospective&hellip; If it doesn&rsquo;t load,
+          <a href="https://drive.google.com/file/d/1ZOm0N1oUosAF4dueduRCACanJIWplRFQ/view?usp=sharing">click here</a>.
+        </p>
+      </div>
+    </div>
+  </header>
+</body>
+</html>
