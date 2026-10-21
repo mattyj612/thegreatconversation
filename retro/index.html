@@ -135,38 +135,59 @@
       flex-direction: column;
       justify-content: space-between;
       gap: clamp(40px, 8vw, 90px);
+      --title-size: clamp(2.8rem, 11vw, 8.5rem);
+      /* Side bearing of the title's G and C, so smaller lines align with the visible letter edge */
+      --title-ink: calc(var(--title-size) * 0.03);
+      --sub-size: clamp(1.3rem, 3.4vw, 2.6rem);
+      --sub-indent: 0.4;
+      /* Width of "a lecture by Matthew Jordan" (11.35 Newsreader ems), measured from the title's visible edge;
+         re-measure if the subtitle copy changes. */
+      --lockup-w: calc(var(--sub-size) * (11.35 + var(--sub-indent)) - var(--title-ink));
     }
     .title-block { max-width: 16ch; }
     .title-block h1 {
       margin: 0;
       font-weight: 600;
-      font-size: clamp(2.8rem, 11vw, 8.5rem);
+      font-size: var(--title-size);
       line-height: 0.86;
       letter-spacing: -0.045em;
       text-transform: none;
     }
     .title-block h1 .ln { display: block; }
+    /* Presenters row, as on the movie poster */
+    .title-presenters {
+      display: flex;
+      justify-content: space-between;
+      width: var(--lockup-w);
+      margin: 0 0 clamp(0.9rem, 3.6vw, 2.8rem) var(--title-ink);
+      font-weight: 600;
+      font-size: max(0.72rem, calc(var(--sub-size) * 0.5));
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
     .title-sub {
       margin-top: 1.1rem;
       font-family: "Newsreader", Georgia, "Times New Roman", serif;
       font-style: normal;
-      font-size: clamp(1.3rem, 3.4vw, 2.6rem);
+      font-size: var(--sub-size);
       line-height: 1.1;
       white-space: nowrap;
       color: var(--fg);
       letter-spacing: -0.01em;
       /* Nudge right so the serif "a" optically lines up with the title's "T" */
-      text-indent: 0.4em;
+      text-indent: calc(var(--sub-indent) * 1em);
     }
+    /* Extra 0.4em is an optical nudge: under the large title, a true-aligned small line reads as sticking out */
     .masthead-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 2.5rem;
-      font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+      margin: 0 0 0 calc(var(--title-ink) + 0.4em);
+      font-size: max(0.85rem, calc(var(--sub-size) * 0.5));
+      line-height: 1.3;
       letter-spacing: -0.01em;
       color: var(--muted);
     }
-    .masthead-meta b { color: var(--fg); font-weight: 600; }
+    .masthead-meta b { color: var(--fg); font-weight: 600; margin-right: 0.6em; }
 
     /* ---------- SECTIONS ---------- */
     section.band {
@@ -395,6 +416,25 @@
       padding: 16px 18px;
     }
 
+    /* Full-size view of a tapped testimonial (phones) */
+    .note-dialog {
+      border: 0;
+      padding: 0;
+      background: none;
+      width: calc(100vw - 2 * var(--pad));
+      max-width: 560px;
+    }
+    .note-dialog::backdrop { background: rgba(7,7,10,0.62); backdrop-filter: blur(3px); }
+    .note-dialog .card {
+      margin: 0;
+      padding: 24px 24px 26px;
+      font-size: 1.12rem;
+      line-height: 1.45;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+      animation: note-in 0.18s ease-out;
+    }
+    @keyframes note-in { from { opacity: 0; transform: scale(0.96); } }
+
     /* ---------- SPONSORS LOGOS ---------- */
     .sponsors-line { font-weight: 600; }
 
@@ -477,10 +517,11 @@
     /* Letter-style signoff that bridges the closing paragraph and the photos */
     .signoff {
       font-family: "Newsreader", Georgia, serif;
-      font-style: italic;
+      font-style: normal;
+      font-weight: 400;
       text-align: right;
       line-height: 1.3;
-      color: var(--muted);
+      color: var(--fg);
       font-size: clamp(1.05rem, 1.9vw, 1.4rem);
       margin: clamp(18px, 2.5vw, 32px) 0 0;
     }
@@ -531,11 +572,25 @@
          filling the whole screen. */
       .next-grid { grid-template-columns: 1fr; gap: 20px; }
       .next-photos { height: clamp(200px, 52vw, 300px); }
-      .masthead-inner { min-height: 52vh; gap: clamp(20px, 5vw, 40px); justify-content: flex-end; }
+      /* Centered lockup, as on the poster: "The Great / Conversation", presenters row spanning the title */
+      .masthead-inner {
+        min-height: 0;
+        padding-top: clamp(56px, 16vw, 88px);
+        padding-bottom: clamp(48px, 13vw, 72px);
+        gap: clamp(22px, 6vw, 36px);
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .title-block { max-width: none; width: max-content; }
+      .title-block h1 .ln:nth-child(-n+2) { display: inline; }
+      .title-presenters { width: auto; margin-left: 0; }
+      .masthead-meta { margin: 0; font-size: 0.75rem; }
       /* Mobile-only crop control for the masthead photo (independent of desktop).
          Raise the % to crop more off the top, lower it to crop more off the bottom. */
       .masthead-bg { object-position: center 90%; }
-      .title-sub { text-indent: 0.2em; margin-top: 0.5rem; }
+      .masthead-inner { --sub-indent: 0; }
+      .title-sub { margin-top: 0.5rem; }
       .two-col { grid-template-columns: 1fr; gap: 22px; }
       .lead { max-width: none; }
       /* Artifacts are flourishes — shrink and soften them on small screens so they never crowd text */
@@ -552,9 +607,53 @@
       .radial-row.bottom { order: 3; }
       .radial-col.side { max-width: none; width: 100%; order: 2; }
       .radial-col.core { flex-basis: auto; width: 100%; order: 1; }
-      .radial-row { max-width: none; }
-      .radial-row .card.r3 { max-width: none; flex-basis: 100%; opacity: 1; font-size: 0.95rem; }
-      .radial .card.r1.peak { font-size: 1.28rem; }
+      /* Tiered for phones: the core cards stay full-width (standout line largest, the long one
+         clamped), and every other note becomes a small clamped card in a two-column grid.
+         Clamped cards open full-size in the note dialog when tapped. */
+      .radial {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: stretch;
+      }
+      .radial-row, .radial-mid, .radial-col.side { display: contents; }
+      .radial-col.core { grid-column: 1 / -1; order: 0; gap: 12px; margin-bottom: 6px; }
+      .radial-col.core .card.peak { order: -1; }
+      .radial .card.r1.peak {
+        font-size: 1.5rem;
+        line-height: 1.18;
+        letter-spacing: -0.03em;
+      }
+      .radial .card.r1 { font-size: 1.06rem; }
+      .radial .card.r1.clamp {
+        padding: 0 24px;
+        border-block: 22px solid transparent;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .radial .card.r2, .radial-row .card.r3 {
+        order: 1;
+        margin: 0;
+        /* Vertical spacing as a border, not padding: overflow clips at the padding edge,
+           so padding would leave the first clamped-away line peeking through. */
+        padding: 0 13px;
+        border-block: 12px solid transparent;
+        font-size: 0.8rem;
+        line-height: 1.38;
+        opacity: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        line-clamp: 5;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+      }
+      .radial-row .card.r3 { order: 2; }
     }
   </style>
 </head>
@@ -565,6 +664,11 @@
     <img class="masthead-bg" src="/photos/RCL_5205.jpg" alt="" aria-hidden="true">
     <div class="masthead-inner">
       <div class="title-block">
+        <div class="title-presenters">
+          <span>Wygo</span>
+          <span>The Toronto Society</span>
+          <span>Irid</span>
+        </div>
         <h1>
           <span class="ln">The</span>
           <span class="ln">Great</span>
@@ -572,11 +676,7 @@
         </h1>
         <div class="title-sub">a lecture by Matthew Jordan</div>
       </div>
-      <div class="masthead-meta">
-        <span><b>May 27, 2026</b></span>
-        <span>Isabel Bader Theatre</span>
-        <span>Toronto</span>
-      </div>
+      <p class="masthead-meta"><b>May 27, 2026</b> Isabel Bader Theatre, Toronto</p>
     </div>
   </header>
 
@@ -623,7 +723,7 @@
         <div class="col-text">
           <p class="body-copy">The audience had a near-even gender split, and ages ranged from young founders to emeritus professors. One fifth of attendees were students or recent graduates from the University of Toronto and the University of Waterloo. The most represented career (70 people) was AI/ML.</p>
           <p class="body-copy">Dozens of founders were in the room, across industries including Xona Space Systems, GPTZero, AccessNow, Convictional, Rubric Labs and more.</p>
-          <p class="body-copy">Friends and co-conspirators held watch parties in 6 countries and 10 cities around the world, including every major US metro and a special viewing in the House of Commons for the federal government of Canada.</p>
+          <p class="body-copy">We intended the gathering to be an example of its own thesis: that knowledge is transmitted in person by people grappling with the real world together. So we only shared the livestream with people hosting watch parties and discussion groups. Ten groups gathered around the world, including in Japan, New Zealand, and Vancouver, and for a special screening in the House of Commons in Ottawa.</p>
         </div>
       </div>
 
@@ -695,7 +795,7 @@
     <div class="wrap">
       <h2 class="eyebrow">The Response</h2>
       <div class="two-col">
-        <p class="body-copy">The event resonated deeply with the audience. Many said it was the signature night of Toronto Tech Week. It gave them a new perspective on their role as technologists, and renewed their motivation to pursue meaningful work.</p>
+        <p class="body-copy">The event resonated deeply with the audience. In tweets, blog posts, and feedback forms, attendees shared that the ideas were profoundly impactful. Many said it was the signature night of Toronto Tech Week. It gave them a new perspective on their role as technologists, and renewed their motivation to pursue meaningful work.</p>
         <p class="body-copy">One theme stood out above the rest: knowledge is embedded in social relationships and passed face-to-face. Books and artifacts are useful as storage mechanisms, but living knowledge lies in people, and follows them where they go. Knowledge is in the builders, not the buildings.</p>
       </div>
 
@@ -717,7 +817,7 @@
 
           <!-- Core: the testimonials that most evoke "this event matters to Toronto tech" -->
           <div class="radial-col core">
-            <div class="card r1">The Great Conversation was a Toronto Tech Week event unlike the others. It was an interactive experience, a delightful history lesson, a rollicking good time… and it transformed participants. I left the event with lots to ponder, wonderful new connections and a deep sense of appreciation for Toronto's place as North America's third-largest tech hub.</div>
+            <div class="card r1 clamp">The Great Conversation was a Toronto Tech Week event unlike the others. It was an interactive experience, a delightful history lesson, a rollicking good time… and it transformed participants. I left the event with lots to ponder, wonderful new connections and a deep sense of appreciation for Toronto's place as North America's third-largest tech hub.</div>
             <div class="card r1 peak">IMO, this should be one of the standout events during Toronto Tech Week.</div>
             <div class="card r1">It really feels like Toronto has a scene and that you're playing a major part in it</div>
           </div>
@@ -739,6 +839,8 @@
       </div>
     </div>
   </section>
+
+  <dialog class="note-dialog" id="note-dialog" aria-label="Testimonial"><div class="card"></div></dialog>
 
   <!-- ============ OUR SPONSORS ============ -->
   <section class="band" id="sponsors">
@@ -856,6 +958,27 @@
     // Re-run after fonts/images settle, since section heights shift.
     window.addEventListener('load', () => setTimeout(placeSquares, 400));
     if (document.readyState === 'complete') placeSquares();
+
+    // On phones the clamped testimonials open full-size when tapped.
+    const noteDialog = document.getElementById('note-dialog');
+    const noteFull = noteDialog.querySelector('.card');
+    const phone = window.matchMedia('(max-width: 820px)');
+    document.querySelectorAll('.radial .card.r2, .radial .card.r3, .radial .card.clamp').forEach(card => {
+      const open = () => {
+        if (!phone.matches) return;
+        noteFull.textContent = card.textContent.trim();
+        noteDialog.showModal();
+      };
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      const sync = () => {
+        if (phone.matches) { card.tabIndex = 0; card.setAttribute('role', 'button'); }
+        else { card.removeAttribute('tabindex'); card.removeAttribute('role'); }
+      };
+      sync();
+      phone.addEventListener('change', sync);
+    });
+    noteDialog.addEventListener('click', () => noteDialog.close());
   </script>
 </body>
 </html>
