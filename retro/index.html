@@ -9,13 +9,13 @@
   <meta property="og:description" content="A retrospective on The Great Conversation, a lecture by Matthew Jordan.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thegreatconversation.ca/retro/">
-  <meta property="og:image" content="https://thegreatconversation.ca/retro-cover.jpg">
+  <meta property="og:image" content="https://thegreatconversation.ca/retro-cover-v2.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Great Conversation">
   <meta name="twitter:description" content="A retrospective on The Great Conversation, a lecture by Matthew Jordan.">
-  <meta name="twitter:image" content="https://thegreatconversation.ca/retro-cover.jpg">
+  <meta name="twitter:image" content="https://thegreatconversation.ca/retro-cover-v2.jpg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,12 @@
       font-family: "PP Neue Montreal";
       src: url("/PPNeueMontreal-Medium.otf") format("opentype");
       font-weight: 400 600;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "BDO Grotesk";
+      src: url("/fonts/BDOGrotesk-DemiBold.otf") format("opentype");
+      font-weight: 600;
       font-display: swap;
     }
 
@@ -156,6 +162,7 @@
     .title-block h1 .ln { display: block; }
     /* Presenters row, as on the movie poster */
     .title-presenters {
+      font-family: "BDO Grotesk", "PP Neue Montreal", "Helvetica Neue", Arial, sans-serif;
       display: flex;
       justify-content: space-between;
       width: var(--lockup-w);
@@ -179,9 +186,9 @@
       /* Nudge right so the serif "a" optically lines up with the title's "T" */
       text-indent: calc(var(--sub-indent) * 1em);
     }
-    /* Extra 0.4em is an optical nudge: under the large title, a true-aligned small line reads as sticking out */
+    /* Extra 0.6em is an optical nudge: under the large title, a true-aligned small line reads as sticking out */
     .masthead-meta {
-      margin: 0 0 0 calc(var(--title-ink) + 0.4em);
+      margin: 0 0 0 calc(var(--title-ink) + 0.6em);
       font-size: max(0.85rem, calc(var(--sub-size) * 0.5));
       line-height: 1.3;
       letter-spacing: -0.01em;
