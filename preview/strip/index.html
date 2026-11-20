@@ -240,8 +240,7 @@
       overflow-x: auto;
       overscroll-behavior-x: contain;
       scroll-snap-type: x proximity;
-      scroll-padding-inline: var(--edge);
-      padding: 0 var(--edge);
+      /* runs edge to edge of the screen */
       scrollbar-width: none;
       cursor: grab;
       outline: none;
@@ -260,22 +259,8 @@
     }
     .strip-ui {
       display: flex;
-      align-items: center;
-      gap: clamp(16px, 3vw, 32px);
+      justify-content: flex-end;
       margin: clamp(14px, 2vw, 22px) var(--edge) 0;
-    }
-    .strip-progress {
-      flex: 1;
-      height: 2px;
-      background: rgba(255,255,255,0.25);
-      position: relative;
-      overflow: hidden;
-    }
-    .strip-progress span {
-      position: absolute; inset: 0 auto 0 0;
-      width: 20%;
-      background: var(--fg);
-      transition: transform 0.12s linear;
     }
     .strip-arrows { display: flex; gap: 8px; }
     .strip-btn { background: transparent; padding: 9px 12px; }
@@ -680,7 +665,6 @@
         <img src="/photos/livestream.jpg" width="1350" height="1800" alt="The livestream crew at the sound desk" loading="lazy" draggable="false">
       </div>
       <div class="strip-ui">
-        <div class="strip-progress" aria-hidden="true"><span></span></div>
         <div class="strip-arrows">
           <button class="vbtn strip-btn" type="button" data-dir="-1" aria-label="Previous photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
           <button class="vbtn strip-btn" type="button" data-dir="1" aria-label="Next photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -894,17 +878,12 @@
     var root = document.querySelector('[data-strip]');
     if (!root) return;
     var track = root.querySelector('.strip-track');
-    var bar = root.querySelector('.strip-progress span');
     var prev = root.querySelector('[data-dir="-1"]');
     var next = root.querySelector('[data-dir="1"]');
     var smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
     function update() {
       var max = track.scrollWidth - track.clientWidth;
-      var frac = track.clientWidth / track.scrollWidth;
-      var pos = max > 0 ? track.scrollLeft / max : 0;
-      bar.style.width = (frac * 100) + '%';
-      bar.style.transform = 'translateX(' + (pos * (1 / frac - 1) * 100) + '%)';
       prev.disabled = track.scrollLeft <= 2;
       next.disabled = track.scrollLeft >= max - 2;
     }
