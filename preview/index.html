@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Preview copy of the new homepage; kept out of search results until it replaces / -->
+  <meta name="robots" content="noindex">
+  <title>The Great Conversation</title>
+  <meta name="description" content="The Great Conversation, a lecture by Matthew Jordan. May 27, 2026 — Isabel Bader Theatre, Toronto. Watch the teaser and the full lecture.">
+  <meta property="og:title" content="The Great Conversation">
+  <meta property="og:description" content="A lecture by Matthew Jordan. Watch the teaser and the full lecture.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thegreatconversation.ca/preview/">
+  <meta property="og:image" content="https://thegreatconversation.ca/retro-cover-v3.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Great Conversation">
+  <meta name="twitter:description" content="A lecture by Matthew Jordan. Watch the teaser and the full lecture.">
+  <meta name="twitter:image" content="https://thegreatconversation.ca/retro-cover-v3.jpg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "PP Neue Montreal";
+      src: url("/PPNeueMontreal-Medium.otf") format("opentype");
+      font-weight: 400 600;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "BDO Grotesk";
+      src: url("/fonts/BDOGrotesk-DemiBold.otf") format("opentype");
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    :root {
+      --blue: #0F2BEC;
+      --blue-deep: #0A1FB0;
+      --ink: #07070a;
+      --fg: #f6f6f8;
+      --muted: rgba(246,246,248,0.72);
+      --grid: rgba(174,190,255,0.16);
+      --cell: 44px;
+      --maxw: 1180px;
+      --pad: clamp(20px, 5vw, 72px);
+      /* one vertical rhythm between every block on the page */
+      --gap: clamp(40px, 6vw, 84px);
+    }
+
+    * { box-sizing: border-box; cursor: url('/cursor.svg') 28 28, auto; }
+    ::selection { background: #fff; color: var(--blue); }
+    ::-webkit-scrollbar { display: none; }
+    html { scrollbar-width: none; scroll-behavior: smooth; }
+
+    html, body {
+      margin: 0;
+      background: var(--blue);
+      color: var(--fg);
+      font-family: "PP Neue Montreal", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body { position: relative; overflow-x: hidden; }
+
+    /* faint engineering grid over the blue field — scrolls with the page */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: var(--cell) var(--cell);
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+
+    /* ---------- HEADER / TITLE ON BLACK ---------- */
+    .masthead {
+      position: relative;
+      background: var(--ink);
+      overflow: hidden;
+    }
+    .masthead-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 44%;
+      z-index: 0;
+      opacity: 0.62;
+    }
+    .masthead::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(7,7,10,0.55) 0%, rgba(7,7,10,0.30) 45%, rgba(7,7,10,0.78) 100%);
+    }
+    .masthead::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(120% 80% at 80% -10%, rgba(15,43,236,0.55), transparent 60%),
+        radial-gradient(80% 60% at 0% 120%, rgba(15,43,236,0.40), transparent 60%);
+      pointer-events: none;
+    }
+    .masthead-inner {
+      position: relative;
+      z-index: 2;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: clamp(48px, 9vw, 120px) var(--pad) clamp(40px, 7vw, 96px);
+      min-height: 78vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: clamp(40px, 8vw, 90px);
+      --title-size: clamp(2.8rem, 11vw, 8.5rem);
+      --title-ink: calc(var(--title-size) * 0.03);
+      --sub-size: clamp(1.3rem, 3.4vw, 2.6rem);
+      --sub-indent: 0.4;
+      --lockup-w: calc(var(--sub-size) * (11.35 + var(--sub-indent)) - var(--title-ink));
+    }
+    .title-block { max-width: 16ch; }
+    .title-block h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: var(--title-size);
+      line-height: 0.86;
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+    .title-block h1 .ln { display: block; }
+    .title-presenters {
+      font-family: "BDO Grotesk", "PP Neue Montreal", "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      justify-content: space-between;
+      width: var(--lockup-w);
+      margin: 0 0 clamp(0.9rem, 3.6vw, 2.8rem) var(--title-ink);
+      font-weight: 600;
+      font-size: max(0.72rem, calc(var(--sub-size) * 0.5));
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .title-sub {
+      margin-top: 1.1rem;
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      font-style: normal;
+      font-size: var(--sub-size);
+      line-height: 1.1;
+      white-space: nowrap;
+      color: var(--fg);
+      letter-spacing: -0.01em;
+      text-indent: calc(var(--sub-indent) * 1em);
+    }
+    .masthead-meta {
+      margin: 0 0 0 calc(var(--title-ink) + 0.6em);
+      font-size: max(0.85rem, calc(var(--sub-size) * 0.5));
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--muted);
+    }
+    .masthead-meta b { color: var(--fg); font-weight: 600; margin-right: 0.6em; }
+
+    /* ---------- TEASER (full-bleed, autoplays muted when scrolled into view) ---------- */
+    /* Sits on the blue field like every other block, with the same top spacing as a
+       section band, so the masthead and the video read as two separate pieces. */
+    .teaser {
+      position: relative;
+      z-index: 1;
+      padding-top: var(--gap);
+    }
+    .teaser video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 100svh;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+      background: var(--ink);
+    }
+    .teaser-controls {
+      position: absolute;
+      right: var(--pad);
+      bottom: clamp(14px, 2.4vw, 28px);
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+    .vbtn {
+      font: inherit;
+      font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      background: rgba(7,7,10,0.55);
+      border: 1px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 9px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .vbtn:hover { background: var(--fg); color: var(--ink); }
+    .vbtn svg { width: 16px; height: 16px; flex: none; }
+    .vbtn[hidden] { display: none; }
+
+    /* ---------- SECTIONS ---------- */
+    section.band {
+      position: relative;
+      padding: var(--gap) 0 0;
+    }
+    .lead {
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin: 0;
+      max-width: 22ch;
+    }
+    p { margin: 0; }
+    .body-copy {
+      font-size: clamp(1rem, 1.5vw, 1.18rem);
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      max-width: 56ch;
+    }
+    .body-copy + .body-copy,
+    .col-text > p + p { margin-top: 1.1em; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: start;
+    }
+    .two-col > .body-copy + .body-copy { margin-top: 0; }
+    .col-text { display: flex; flex-direction: column; }
+
+    /* ---------- MONTAGE ---------- */
+    .montage {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: clamp(24px, 3.5vw, 44px) 0 0;
+    }
+    .montage.full {
+      position: relative;
+      --mpad: max(0px, calc((100vw - var(--maxw)) / 2 + var(--pad)));
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      padding: 0 var(--mpad);
+    }
+    .row {
+      display: flex;
+      gap: 6px;
+      --h: clamp(140px, 21vw, 300px);
+    }
+    .row.tall { --h: clamp(180px, 30vw, 420px); }
+    .row .ph {
+      position: relative;
+      flex-grow: 1;
+      flex-basis: 0;
+      height: var(--h);
+      overflow: hidden;
+      background: var(--blue-deep);
+    }
+    .row .ph img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.02);
+    }
+
+    .feature-img {
+      width: 100%;
+      height: clamp(220px, 34vw, 460px);
+      object-fit: cover;
+      display: block;
+      background: var(--blue-deep);
+    }
+
+    .sponsors-line { font-weight: 600; }
+
+    /* ---------- FULL LECTURE ---------- */
+    .embed {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--ink);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    }
+    .embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .listen {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: clamp(18px, 2.4vw, 28px);
+    }
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 18px;
+      background: var(--fg);
+      color: var(--blue);
+      text-decoration: none;
+      font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      letter-spacing: -0.015em;
+      font-weight: 600;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .link-btn:hover { background: var(--ink); color: var(--fg); }
+    .link-btn.ghost {
+      background: transparent;
+      color: var(--fg);
+      box-shadow: inset 0 0 0 1.5px var(--fg);
+    }
+    .link-btn.ghost:hover { background: var(--fg); color: var(--blue); }
+    .link-btn svg { width: 20px; height: 20px; flex: none; }
+    .read-btn { align-self: flex-start; margin-top: clamp(22px, 2.6vw, 32px); }
+
+    /* Full-bleed closing image that ends the page on the team, uncropped. */
+    .closing-figure {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+    }
+    .closing-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ---------- MANIFESTO POP-UP ----------
+       The playbill's "Letter from the Director", read in an overlay on the blue grid. */
+    .letter-dialog {
+      width: min(860px, calc(100vw - 2 * var(--pad)));
+      max-width: none;
+      max-height: calc(100svh - 2 * clamp(16px, 4vw, 48px));
+      padding: 0;
+      border: 0;
+      outline: none;
+      color: var(--fg);
+      background-color: var(--blue);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: var(--cell) var(--cell);
+      background-attachment: local;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.5);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: none;
+    }
+    .letter-dialog::backdrop { background: rgba(7,7,10,0.68); backdrop-filter: blur(4px); }
+    .letter-dialog[open] { animation: letter-in 0.22s ease-out; }
+    @keyframes letter-in { from { opacity: 0; transform: translateY(14px); } }
+    .letter-bar {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: flex-end;
+      height: 0;
+    }
+    .letter-close {
+      margin: 14px 14px 0 0;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: var(--fg);
+      color: var(--blue);
+      border: 0;
+      padding: 0;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .letter-close:hover { background: var(--ink); color: var(--fg); }
+    .letter-close svg { width: 18px; height: 18px; }
+    .letter-inner { padding: clamp(40px, 6vw, 76px) clamp(22px, 6vw, 76px) clamp(36px, 5vw, 64px); }
+    .letter-kicker {
+      font-family: "BDO Grotesk", "PP Neue Montreal", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+    .letter-title {
+      margin: 0 0 clamp(24px, 3.4vw, 40px);
+      font-weight: 600;
+      font-size: clamp(2.1rem, 5.4vw, 3.8rem);
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+    .letter {
+      max-width: 34em;
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      font-size: clamp(1.1rem, 1.6vw, 1.28rem);
+      line-height: 1.6;
+      letter-spacing: -0.005em;
+    }
+    .letter p { margin: 0 0 1.15em; }
+    .letter p:last-child { margin-bottom: 0; }
+    .letter p.first::first-letter {
+      float: left;
+      font-size: 4.1em;
+      line-height: 0.82;
+      padding: 0.07em 0.08em 0 0;
+    }
+    .letter .pull {
+      margin: 1.5em 0 1.6em;
+      padding: 0;
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    html.letter-open { overflow: hidden; }
+
+    /* ---------- SPONSOR LOGOS ----------
+       Logos were cut from the playbill at one common scale, so a single factor (--k)
+       keeps their relative sizes exactly as designed there. --w is each file's pixel width. */
+    .sponsor-strip {
+      position: relative;
+      z-index: 1;
+      padding: var(--gap) 0;
+      --k: 0.2;
+    }
+    .sponsor-label {
+      font-family: "BDO Grotesk", "PP Neue Montreal", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--muted);
+      margin: 0 0 clamp(22px, 3vw, 34px);
+    }
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      column-gap: clamp(28px, 5vw, 64px);
+      row-gap: 18px;
+    }
+    .logo-row + .logo-row { margin-top: clamp(18px, 2.6vw, 30px); }
+    .logo-row img {
+      display: block;
+      width: calc(var(--w) * var(--k) * 1px);
+      height: auto;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.18);
+    }
+    .footer-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 22px var(--pad);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: clamp(0.8rem, 1.5vw, 0.98rem);
+      letter-spacing: -0.01em;
+    }
+    .footer-inner .center { color: var(--muted); }
+
+    @media (max-width: 820px) {
+      .masthead-inner {
+        min-height: 0;
+        padding-top: clamp(56px, 16vw, 88px);
+        padding-bottom: clamp(48px, 13vw, 72px);
+        gap: clamp(22px, 6vw, 36px);
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .title-block { max-width: none; width: max-content; }
+      .title-block h1 .ln:nth-child(-n+2) { display: inline; }
+      .title-presenters { width: auto; margin-left: 0; }
+      .masthead-meta { margin: 0; font-size: 0.75rem; }
+      .masthead-bg { object-position: center 90%; }
+      .masthead-inner { --sub-indent: 0; }
+      .title-sub { margin-top: 0.5rem; }
+      .two-col { grid-template-columns: 1fr; gap: 22px; }
+      .lead { max-width: none; }
+      .teaser-controls { right: 12px; bottom: 12px; }
+      .sponsor-strip { --k: 0.13; }
+      .letter-dialog { width: 100vw; max-height: none; height: 100svh; margin: 0; }
+
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <img class="masthead-bg" src="/photos/RCL_5205.jpg" alt="" aria-hidden="true">
+    <div class="masthead-inner">
+      <div class="title-block">
+        <div class="title-presenters">
+          <span>Wygo</span>
+          <span>The Toronto Society</span>
+          <span>Irid</span>
+        </div>
+        <h1>
+          <span class="ln">The</span>
+          <span class="ln">Great</span>
+          <span class="ln">Conversation</span>
+        </h1>
+        <div class="title-sub">a lecture by Matthew Jordan</div>
+      </div>
+      <p class="masthead-meta"><b>May 27, 2026</b> Isabel Bader Theatre, Toronto</p>
+    </div>
+  </header>
+
+  <!-- ============ TEASER ============ -->
+  <section class="teaser" id="teaser" aria-label="Teaser trailer">
+    <video id="teaser-video" muted playsinline preload="metadata"
+           poster="/video/tgc-teaser-poster.jpg"
+           data-src-hd="/video/tgc-teaser-1080.mp4"
+           data-src-sd="/video/tgc-teaser-720.mp4">
+      <source src="/video/tgc-teaser-720.mp4" type="video/mp4">
+    </video>
+    <div class="teaser-controls">
+      <button class="vbtn" id="teaser-sound" type="button" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="wave" d="M17 9l4 6M21 9l-4 6"/></svg>
+        <span>Sound on</span>
+      </button>
+      <button class="vbtn" id="teaser-replay" type="button" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v5h5"/></svg>
+        <span>Replay</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ THE EVENING ============ -->
+  <section class="band" id="evening">
+    <div class="wrap">
+      <div class="two-col">
+        <p class="lead">On May 27th, nearly 500 builders, writers, and artists filled the Isabel Bader Theatre in Toronto.</p>
+        <div class="col-text">
+          <p class="body-copy">Across a book fair, a lecture, and a panel, The Great Conversation demonstrated how technology is the actualization of ideas enacted by communities of practice, in small local scenes, transmitting specialized knowledge face-to-face.</p>
+          <p class="body-copy">We are all in dialogue with a tradition of thinkers and builders who precede us. It is our responsibility to continue their work.</p>
+          <a class="link-btn ghost read-btn" href="#manifesto" data-open-letter>Read the manifesto <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHOTOS ============ -->
+  <section class="band" id="photos" aria-label="Photographs from the evening">
+    <div class="wrap">
+      <div class="montage full" style="margin-top:0">
+        <div class="row tall">
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5191.jpg" alt="Matthew Jordan on stage" loading="lazy"></div>
+          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5214.jpg" alt="The organizers' panel on stage" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02487.jpg" alt="Matthew Jordan delivering the lecture" loading="lazy"></div>
+        </div>
+        <div class="row">
+          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5109.jpg" alt="A packed theatre" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02717.jpg" alt="An attendee asks a question at the microphone" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02456.jpg" alt="A speaker on stage" loading="lazy" style="transform:scale(1.18);transform-origin:center 60%"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5126.jpg" alt="The audience during the lecture" loading="lazy"></div>
+        </div>
+        <div class="row">
+          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5204.jpg" alt="The organizers laughing on stage" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.55"><img src="/photos/DSC02611.jpg" alt="An attendee smiling with a microphone" loading="lazy" style="object-position:center 50%"></div>
+          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5050.jpg" alt="The audience during the lecture" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5207.jpg" alt="An attendee applauding from an armchair" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOOK FAIR & SPONSORS ============ -->
+  <section class="band" id="bookfair">
+    <div class="wrap">
+      <div class="two-col" style="align-items:center">
+        <img class="feature-img" src="/photos/RCL_4970.jpg" alt="An overhead view of the book fair tables" loading="lazy">
+        <div class="col-text">
+          <p class="body-copy">The event brought together publications that are shaping the global conversation about technology: Colossus, Stripe Press, Asterisk, and Orbital Studies.</p>
+          <p class="body-copy">We are grateful to our lead sponsors <span class="sponsors-line">Notion, Cursor, and Ambition</span>, supported by Ambrook, Colossus, and Positive Sum Ventures.</p>
+        </div>
+      </div>
+
+      <div class="montage full">
+        <div class="row tall">
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4925.jpg" alt="Books on display" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4961.jpg" alt="Guests browsing the book fair" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4904.jpg" alt="A reader holding a publisher's book" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4840.jpg" alt="A sponsor booth at the book fair" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FULL LECTURE ============ -->
+  <section class="band" id="watch">
+    <div class="wrap">
+      <div class="embed">
+        <iframe src="https://www.youtube-nocookie.com/embed/FgXKsetK1M4?rel=0"
+                title="The Great Conversation — full lecture"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+      </div>
+      <div class="listen">
+        <a class="link-btn" href="https://www.youtube.com/live/FgXKsetK1M4" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.4-1.6.5-4.8.5-4.8s0-3.2-.5-4.8zM9.7 15V9l5.8 3-5.8 3z"/></svg>
+          Watch on YouTube
+        </a>
+        <!-- TODO: replace href with the Spotify link -->
+        <a class="link-btn ghost" href="#" target="_blank" rel="noopener" data-placeholder="spotify">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm5 15.9a.7.7 0 0 1-.9.2c-2.6-1.6-5.8-1.9-9.6-1a.7.7 0 1 1-.3-1.3c4.2-1 7.7-.6 10.6 1.2.3.2.4.6.2.9zm1.3-3a.9.9 0 0 1-1.2.3c-2.9-1.8-7.4-2.3-10.9-1.3a.9.9 0 1 1-.5-1.7c4-1.2 9-.6 12.3 1.5.4.3.6.8.3 1.2zm.1-3.1C14.9 8.7 9.1 8.5 5.7 9.5a1 1 0 1 1-.6-2c3.9-1.2 10.3-1 14.3 1.4a1 1 0 0 1-1 1.9z"/></svg>
+          Listen on Spotify
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIGN-OFF ============ -->
+  <section class="band" id="team">
+    <figure class="closing-figure">
+      <img src="/photos/team_photo.jpg" alt="The organizing team together" loading="lazy">
+    </figure>
+  </section>
+
+  <!-- ============ SPONSORS ============ -->
+  <section class="sponsor-strip" aria-label="Sponsors">
+    <div class="wrap">
+      <p class="sponsor-label">Supported by</p>
+      <div class="logo-row">
+        <img src="/sponsors/notion.png" alt="Notion" style="--w:612">
+        <img src="/sponsors/ambition.png" alt="Ambition" style="--w:834">
+        <img src="/sponsors/cursor.png" alt="Cursor" style="--w:696">
+      </div>
+      <div class="logo-row">
+        <img src="/sponsors/ambrook.png" alt="Ambrook" style="--w:497">
+        <img src="/sponsors/positive-sum.png" alt="Positive Sum" style="--w:562">
+        <img src="/sponsors/colossus.png" alt="Colossus" style="--w:426">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANIFESTO (pop-up) ============ -->
+  <dialog class="letter-dialog" id="manifesto" aria-labelledby="letter-title">
+    <div class="letter-bar">
+      <button class="letter-close" type="button" aria-label="Close the letter">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+      </button>
+    </div>
+    <div class="letter-inner">
+      <p class="letter-kicker">From the playbill</p>
+      <h2 class="letter-title" id="letter-title">Letter from the Director</h2>
+      <article class="letter">
+      <p class="first">To be born is to become part of the human project. It is an inheritance that stretches across millennia, with our best ideas carried on the waves of tradition from generation to generation. What we think of as “daily life” is made possible by arcane scribblings and practices that stretch back farther than we can name, transmitted by conversation down to the present day.</p>
+
+      <p>Tuning into this Great Conversation is among the most meaningful things you can do. It is a way to carry on a lineage, to be a good descendant and a good ancestor. It allows you to leave your mark on our shared cultural canon, to know which giants’ shoulders you stand on, to become more free in the way you move about the world, and to exercise your autonomy by learning whose ideas are most influencing your own. These are beautiful and worthwhile ends.</p>
+
+      <p>But do not mistake this for an act of personal interest or curiosity. This is existential. Knowledge does not transmit itself and can always disappear. We can go to the moon then abandon the talent that got us there, leaving us unable to return for decades. We can outsource our craft knowledge, stop training our apprentices, and collectively forget how to build. We can offload our difficult decisions to consultants or to machines, and lose our ability to think for ourselves.</p>
+
+      <blockquote class="pull">We can go to the moon then abandon the talent that got us there, leaving us unable to return for decades.</blockquote>
+
+      <p>And beyond technical know-how, we risk losing the knowledge of what it means to be a human participant in this project: the stories, traditions, and virtues that make our lives worth living. This knowledge does not lie in textbooks, nor in the artifacts we build, but in ourselves.</p>
+
+      <p>This is why the conversation about technology is often so muddled. “Technology” is usually invoked to describe tools and products: the steam engine, the iPhone, Claude. But “technology” is far more than these artifacts. It’s <em>techne</em>: the craftsmanship, art, or method required to achieve an objective. It’s <em>institutions</em>: the arrangement of people in companies, universities, and governments that enable or constrain the production of artifacts. And it’s <em>culture</em>: ideas about how the world should be, in the form of literature, film, or philosophy, that provide the vision of the future that our tools are designed to actualize.</p>
+
+      <p>All of these—craft practices, human arrangements, ideas about the world—are fundamentally social. Technology is an inherently collaborative enterprise. Collaboration requires trust, and trust requires shared stakes, which can only be generated by struggling with the real world, face-to-face, together.</p>
+
+      <blockquote class="pull">Collaboration requires trust, and trust requires shared stakes, which can only be generated by struggling with the real world, face-to-face, together.</blockquote>
+
+      <p>The work of technology is not limited to one kind of person. Artists, scientists, writers, entrepreneurs, academics, engineers, designers, policy-makers—we are all technologists.</p>
+
+      <p>Canadians have a unique part to play in setting this shared vision of technology. We are part of many traditions in tandem. We take the best from elsewhere, travelling to the “source” and bringing insights home, while also taking big swings of our own, initiating schools of thought that are distinctly Canadian.</p>
+
+      <p>Our work now is as it’s always been: take the best of our great inheritance and use it to drive the world forward. It is up to each of us to carry on the work of the human project together. The Great Conversation is about introducing you to your ancestors, for the good of your work, for the good of your spirit, and for the good of the world.</p>
+      </article>
+    </div>
+  </dialog>
+
+  <footer>
+    <div class="footer-inner">
+      <span>May 27, 2026</span>
+      <span class="center">The Great Conversation</span>
+      <span>Toronto</span>
+    </div>
+  </footer>
+
+  <script>
+    // ---- Teaser: pick a resolution, autoplay (muted) while on screen, pause when not ----
+    (function () {
+      const v = document.getElementById('teaser-video');
+      const soundBtn = document.getElementById('teaser-sound');
+      const replayBtn = document.getElementById('teaser-replay');
+      if (!v) return;
+
+      const wantHD = window.innerWidth * (window.devicePixelRatio || 1) > 1700;
+      if (wantHD) {
+        v.querySelector('source').src = v.dataset.srcHd;
+        v.load();
+      }
+
+      let ended = false;
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !ended) v.play().catch(() => {});
+        else if (!entry.isIntersecting) v.pause();
+      }, { threshold: 0.5 });
+      io.observe(v);
+
+      const setSound = (on) => {
+        v.muted = !on;
+        soundBtn.setAttribute('aria-pressed', String(on));
+        soundBtn.querySelector('span').textContent = on ? 'Sound off' : 'Sound on';
+        soundBtn.querySelector('.wave').setAttribute('d', on ? 'M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12' : 'M17 9l4 6M21 9l-4 6');
+      };
+      soundBtn.addEventListener('click', () => {
+        setSound(v.muted);
+        if (v.paused && !ended) v.play().catch(() => {});
+      });
+      v.addEventListener('click', () => setSound(v.muted));
+
+      v.addEventListener('ended', () => { ended = true; replayBtn.hidden = false; });
+      replayBtn.addEventListener('click', () => {
+        ended = false;
+        replayBtn.hidden = true;
+        v.currentTime = 0;
+        v.play().catch(() => {});
+      });
+    })();
+
+    // ---- Manifesto pop-up: opens from the button or a #manifesto link ----
+    (function () {
+      const dlg = document.getElementById('manifesto');
+      if (!dlg) return;
+      const open = () => {
+        if (dlg.open) return;
+        dlg.showModal();
+        dlg.scrollTop = 0;
+        document.documentElement.classList.add('letter-open');
+        if (location.hash !== '#manifesto') history.replaceState(null, '', '#manifesto');
+      };
+      document.querySelectorAll('[data-open-letter]').forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); open(); }));
+      dlg.querySelector('.letter-close').addEventListener('click', () => dlg.close());
+      // a click on the dimmed backdrop (outside the panel) closes it
+      dlg.addEventListener('click', (e) => {
+        const r = dlg.getBoundingClientRect();
+        if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+      });
+      dlg.addEventListener('close', () => {
+        document.documentElement.classList.remove('letter-open');
+        if (location.hash === '#manifesto') history.replaceState(null, '', location.pathname + location.search);
+      });
+      if (location.hash === '#manifesto') open();
+    })();
+  </script>
+</body>
+</html>
