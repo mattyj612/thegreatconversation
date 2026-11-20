@@ -293,6 +293,8 @@
       --h: clamp(140px, 21vw, 300px);
     }
     .row.tall { --h: clamp(180px, 30vw, 420px); }
+    /* each photo at its own shape: the row's height follows the page width */
+    .row.fit { --h: max(110px, calc((100vw - 2 * var(--mpad) - (var(--n) - 1) * 6px) / var(--sum))); }
     .row .ph {
       position: relative;
       flex-grow: 1;
@@ -610,28 +612,23 @@
   <section class="band" id="photos" aria-label="Photographs from the evening">
     <div class="wrap">
       <div class="montage full" style="margin-top:0">
-        <div class="row tall">
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5191.jpg" alt="Matthew Jordan on stage" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5214.jpg" alt="The organizers' panel on stage" loading="lazy"></div>
+        <div class="row fit" style="--n:3;--sum:2.834">
           <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02487.jpg" alt="Matthew Jordan delivering the lecture" loading="lazy"></div>
+          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5214.jpg" alt="The organizers' panel on stage" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02456.jpg" alt="A speaker on stage" loading="lazy" style="transform:scale(1.18);transform-origin:center 60%"></div>
         </div>
-        <div class="row">
+        <div class="row fit" style="--n:4;--sum:4.334">
           <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5109.jpg" alt="A packed theatre" loading="lazy"></div>
           <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02717.jpg" alt="An attendee asks a question at the microphone" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02456.jpg" alt="A speaker on stage" loading="lazy" style="transform:scale(1.18);transform-origin:center 60%"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4997.jpg" alt="Guests examining prints at the book fair" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02611.jpg" alt="An attendee smiling with a microphone" loading="lazy"></div>
+          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5245.jpg" alt="An audience member at the microphone" loading="lazy"></div>
         </div>
-        <div class="row">
+        <div class="row fit" style="--n:5;--sum:4.251">
           <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5207.jpg" alt="An attendee applauding from an armchair" loading="lazy"></div>
           <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5126.jpg" alt="The audience during the lecture" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.55"><img src="/photos/DSC02611.jpg" alt="An attendee smiling with a microphone" loading="lazy" style="object-position:center 50%"></div>
+          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5103.jpg" alt="A camera operator filming the lecture" loading="lazy"></div>
           <div class="ph" style="flex-grow:0.75"><img src="/photos/livestream.jpg" alt="The livestream crew at the sound desk" loading="lazy"></div>
           <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5095.jpg" alt="Attendees in the theatre seats" loading="lazy"></div>
-        </div>
-        <div class="row">
-          <div class="ph" style="flex-grow:1.15"><img src="/photos/RCL_5103.jpg" alt="A camera operator filming the lecture" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.15"><img src="/photos/RCL_5204.jpg" alt="The organizers laughing on stage" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.05"><img src="/photos/RCL_5245.jpg" alt="An audience member at the microphone" loading="lazy"></div>
         </div>
       </div>
     </div>
