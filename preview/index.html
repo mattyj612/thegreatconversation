@@ -256,6 +256,13 @@
       color: var(--fg);
       max-width: 56ch;
     }
+    /* the short standalone paragraphs (book fair, watch parties) read better a step up */
+    .body-copy.mid {
+      font-size: clamp(1.1rem, 1.85vw, 1.42rem);
+      line-height: 1.34;
+      letter-spacing: -0.02em;
+      max-width: 34ch;
+    }
     .body-copy + .body-copy,
     .col-text > p + p { margin-top: 1.1em; }
 
@@ -629,8 +636,8 @@
       <div class="two-col" style="align-items:center">
         <img class="feature-img" src="/photos/RCL_4970.jpg" alt="An overhead view of the book fair tables" loading="lazy">
         <div class="col-text">
-          <p class="body-copy">The event brought together publications that are shaping the global conversation about technology: Colossus, Stripe Press, Asterisk, and Orbital Studies.</p>
-          <p class="body-copy">We are grateful to our lead sponsors <span class="sponsors-line">Notion, Cursor, and Ambition</span>, supported by Ambrook, Colossus, and Positive Sum Ventures.</p>
+          <p class="body-copy mid">The event brought together publications that are shaping the global conversation about technology: Colossus, Stripe Press, Asterisk, and Orbital Studies.</p>
+          <p class="body-copy mid">We are grateful to our lead sponsors <span class="sponsors-line">Notion, Cursor, and Ambition</span>, supported by Ambrook, Colossus, and Positive Sum Ventures.</p>
         </div>
       </div>
 
@@ -640,6 +647,13 @@
           <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4968.jpg" alt="An overhead view of the book tables" loading="lazy"></div>
           <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4961.jpg" alt="Guests browsing the book fair" loading="lazy"></div>
         </div>
+        <!-- Portrait sponsor photos from /retro: kept tall so the signage at top and bottom stays in frame -->
+        <div class="row tall">
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4840.jpg" alt="A sponsor booth at the book fair" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4899.jpg" alt="Guests at a sponsor's table" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4905.jpg" alt="An attendee at the book fair" loading="lazy"></div>
+          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4904.jpg" alt="A reader holding a publisher's book" loading="lazy"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -648,8 +662,8 @@
   <section class="band" id="response">
     <div class="wrap">
       <div class="two-col">
-        <p class="body-copy">Ten groups gathered for watch parties around the world, including in Japan, New Zealand, and Vancouver, and for a special screening in the House of Commons in Ottawa.</p>
-        <p class="body-copy">Across all of the discussions, both in watch parties and in the room, one theme stood out above the rest: Knowledge is embedded in social relationships and passed face-to-face. Books and artifacts are useful as storage mechanisms, but living knowledge lies in people, and follows them where they go.</p>
+        <p class="body-copy mid">Ten groups gathered for watch parties around the world, including in Japan, New Zealand, and Vancouver, and for a special screening in the House of Commons in Ottawa.</p>
+        <p class="body-copy mid">Across all of the discussions, both in watch parties and in the room, one theme stood out above the rest: Knowledge is embedded in social relationships and passed face-to-face. Books and artifacts are useful as storage mechanisms, but living knowledge lies in people, and follows them where they go.</p>
       </div>
     </div>
   </section>
