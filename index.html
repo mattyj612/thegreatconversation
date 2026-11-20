@@ -514,6 +514,15 @@
     }
     .footer-inner .center { color: var(--muted); }
 
+    /* Desktop: the presenters row is set larger and spans the full width of "Conversation"
+       (5.257 title-ems, measured), as on the poster, so the bigger names still have room. */
+    @media (min-width: 821px) {
+      .title-presenters {
+        width: calc(var(--title-size) * 5.257 - var(--title-ink));
+        font-size: calc(var(--sub-size) * 0.66);
+      }
+    }
+
     @media (max-width: 820px) {
       .masthead-inner {
         min-height: 0;
