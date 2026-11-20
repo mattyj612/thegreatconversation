@@ -232,6 +232,13 @@
       position: relative;
       padding: var(--gap) 0 0;
     }
+    .eyebrow {
+      font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin: 0 0 clamp(22px, 3vw, 40px);
+    }
     .lead {
       font-size: clamp(1.35rem, 3vw, 2rem);
       line-height: 1.18;
@@ -348,6 +355,17 @@
     .link-btn.ghost:hover { background: var(--fg); color: var(--blue); }
     .link-btn svg { width: 20px; height: 20px; flex: none; }
     .read-btn { align-self: flex-start; margin-top: clamp(22px, 2.6vw, 32px); }
+
+    /* Closing line above the team photo */
+    .next-msg {
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      max-width: 34ch;
+      margin: 0;
+      text-wrap: balance;
+    }
+    .wrap + .closing-figure { margin-top: clamp(24px, 3.5vw, 44px); }
 
     /* Full-bleed closing image that ends the page on the team, uncropped. */
     .closing-figure {
@@ -636,6 +654,7 @@
   <!-- ============ FULL LECTURE ============ -->
   <section class="band" id="watch">
     <div class="wrap">
+      <h2 class="eyebrow">Watch the Lecture</h2>
       <div class="embed">
         <iframe src="https://www.youtube-nocookie.com/embed/FgXKsetK1M4?rel=0"
                 title="The Great Conversation — full lecture"
@@ -660,6 +679,9 @@
 
   <!-- ============ SIGN-OFF ============ -->
   <section class="band" id="team">
+    <div class="wrap">
+      <p class="next-msg">Planning is now underway for The Great Conversation Part&nbsp;II, as part of Toronto Tech Week 2027. We look forward to being in dialogue again soon.</p>
+    </div>
     <figure class="closing-figure">
       <img src="/photos/team_photo.jpg" alt="The organizing team together" loading="lazy">
     </figure>
