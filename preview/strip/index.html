@@ -10,13 +10,14 @@
   <meta property="og:description" content="A lecture by Matthew Jordan. Watch the teaser and the full lecture.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thegreatconversation.ca/preview/strip/">
-  <meta property="og:image" content="https://thegreatconversation.ca/retro-cover-v3.jpg">
+  <meta property="og:image" content="https://thegreatconversation.ca/og-cover.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Great Conversation, a lecture by Matthew Jordan, May 27, 2026, Isabel Bader Theatre, Toronto">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Great Conversation">
   <meta name="twitter:description" content="A lecture by Matthew Jordan. Watch the teaser and the full lecture.">
-  <meta name="twitter:image" content="https://thegreatconversation.ca/retro-cover-v3.jpg">
+  <meta name="twitter:image" content="https://thegreatconversation.ca/og-cover.jpg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -228,7 +229,7 @@
     .vbtn svg { width: 16px; height: 16px; flex: none; }
     .vbtn[hidden] { display: none; }
 
-    /* ---------- FILMSTRIP (sideways scroll, every photo at its own shape) ---------- */
+    /* ---------- FILMSTRIP (drifts slowly sideways, loops, every photo at its own shape) ---------- */
     .strip {
       --edge: max(var(--pad), calc((100vw - var(--maxw)) / 2 + var(--pad)));
       --sh: clamp(300px, 34vw, 480px);
@@ -239,21 +240,19 @@
       gap: 6px;
       overflow-x: auto;
       overscroll-behavior-x: contain;
-      scroll-snap-type: x proximity;
       /* runs edge to edge of the screen */
       scrollbar-width: none;
       cursor: grab;
       outline: none;
     }
     .strip-track::-webkit-scrollbar { display: none; }
-    .strip-track.dragging { cursor: grabbing; scroll-snap-type: none; }
+    .strip-track.dragging { cursor: grabbing; }
     .strip-track img {
       flex: none;
       height: var(--sh);
       width: auto;
       display: block;
       background: var(--blue-deep);
-      scroll-snap-align: start;
       user-select: none;
       -webkit-user-drag: none;
     }
@@ -264,7 +263,6 @@
     }
     .strip-arrows { display: flex; gap: 8px; }
     .strip-btn { background: transparent; padding: 9px 12px; }
-    .strip-btn:disabled { opacity: 0.35; pointer-events: none; }
 
     /* ---------- SECTIONS ---------- */
     section.band {
@@ -647,8 +645,22 @@
 
   <!-- ============ PHOTOS ============ -->
   <section class="band" id="photos" aria-label="Photographs from the evening">
-    <div class="strip" data-strip>
+    <div class="strip" data-strip data-count="14">
       <div class="strip-track" tabindex="0" aria-label="Photographs from the evening, scroll sideways">
+        <img src="/photos/DSC02295.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5050.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5095.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02487.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5109.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5126.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02549.jpg" width="1800" height="1200" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5103.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5214.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5207.jpg" width="1201" height="1799" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02611.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02717.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5245.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/livestream.jpg" width="1350" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
         <img src="/photos/DSC02295.jpg" width="1200" height="1800" alt="Guests in conversation before the lecture" loading="eager" draggable="false">
         <img src="/photos/RCL_5050.jpg" width="1800" height="1201" alt="Attendees reading the program before the lecture" loading="eager" draggable="false">
         <img src="/photos/RCL_5095.jpg" width="1201" height="1800" alt="Attendees in the theatre seats" loading="eager" draggable="false">
@@ -663,6 +675,20 @@
         <img src="/photos/DSC02717.jpg" width="1200" height="1800" alt="An attendee asks a question at the microphone" loading="lazy" draggable="false">
         <img src="/photos/RCL_5245.jpg" width="1800" height="1201" alt="An audience member at the microphone" loading="lazy" draggable="false">
         <img src="/photos/livestream.jpg" width="1350" height="1800" alt="The livestream crew at the sound desk" loading="lazy" draggable="false">
+        <img src="/photos/DSC02295.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5050.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5095.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02487.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5109.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5126.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02549.jpg" width="1800" height="1200" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5103.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5214.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5207.jpg" width="1201" height="1799" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02611.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02717.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5245.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/livestream.jpg" width="1350" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
       </div>
       <div class="strip-ui">
         <div class="strip-arrows">
@@ -874,54 +900,114 @@
     })();
   </script>
 <script>
+  // Filmstrip: drifts slowly to the left on its own and loops forever. It pauses while
+  // someone hovers, drags, swipes or uses the arrows, and picks up again a moment later.
   (function () {
     var root = document.querySelector('[data-strip]');
     if (!root) return;
     var track = root.querySelector('.strip-track');
-    var prev = root.querySelector('[data-dir="-1"]');
-    var next = root.querySelector('[data-dir="1"]');
-    var smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    var imgs = track.querySelectorAll('img');
+    var count = +root.getAttribute('data-count');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var SPEED = 32;          // px per second
+    var RESUME_AFTER = 2500; // ms of quiet before drifting again
 
-    function update() {
-      var max = track.scrollWidth - track.clientWidth;
-      prev.disabled = track.scrollLeft <= 2;
-      next.disabled = track.scrollLeft >= max - 2;
+    var setW = 0;            // width of one full series, gap included
+    var pos = 0;             // where we want scrollLeft to be (kept as a float)
+    var hovering = false, holding = false, visible = false, pageHidden = document.hidden;
+    var lastTouch = 0, last = 0, glide = null, raf = 0;
+
+    function measure() {
+      var keep = setW ? (pos - setW) / setW : 0;
+      setW = imgs[count].offsetLeft - imgs[0].offsetLeft;
+      pos = setW + keep * setW;
+      track.scrollLeft = pos;
     }
+    // keep pos inside the middle copy so there is always room on both sides
+    function wrap() {
+      if (pos >= 2 * setW) pos -= setW;
+      else if (pos < setW) pos += setW;
+    }
+    function apply() { track.scrollLeft = pos; }
+    function touched() { lastTouch = performance.now(); }
+
+    function tick(now) {
+      raf = 0;
+      var dt = last ? Math.min(now - last, 100) : 0;
+      last = now;
+      if (glide) {
+        var t = Math.min(1, (now - glide.t0) / glide.dur);
+        var e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        pos = glide.from + (glide.to - glide.from) * e;
+        apply();
+        if (t === 1) { glide = null; wrap(); apply(); touched(); }
+      } else if (!reduce && !hovering && !holding && now - lastTouch > RESUME_AFTER) {
+        pos += SPEED * dt / 1000;
+        wrap();
+        apply();
+      }
+      if (visible && !pageHidden) raf = requestAnimationFrame(tick);
+    }
+    function start() { if (!raf && visible && !pageHidden) { last = 0; raf = requestAnimationFrame(tick); } }
+
+    // the reader scrolled by hand (trackpad, swipe, keyboard): follow along
+    track.addEventListener('scroll', function () {
+      if (Math.abs(track.scrollLeft - pos) > 2 && !glide) {
+        pos = track.scrollLeft;
+        touched();
+      }
+    }, { passive: true });
+    track.addEventListener('touchstart', function () { holding = true; touched(); }, { passive: true });
+    track.addEventListener('touchend', function () { holding = false; touched(); wrap(); });
+
+    track.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hovering = true; });
+    track.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hovering = false; touched(); } });
+
     function step(dir) {
-      track.scrollBy({ left: dir * track.clientWidth * 0.8, behavior: smooth });
+      wrap();
+      var from = glide ? pos : track.scrollLeft;
+      pos = from;
+      glide = { from: from, to: from + dir * track.clientWidth * 0.8, t0: performance.now(), dur: reduce ? 1 : 700 };
+      start();
     }
-    prev.addEventListener('click', function () { step(-1); });
-    next.addEventListener('click', function () { step(1); });
+    root.querySelectorAll('.strip-btn').forEach(function (b) {
+      b.addEventListener('click', function () { step(+b.getAttribute('data-dir')); });
+    });
     track.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
     });
-    track.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    track.querySelectorAll('img').forEach(function (img) { img.addEventListener('load', update); });
 
-    // Drag with the mouse (touch and trackpads scroll natively)
+    // click and drag with a mouse (touch and trackpads scroll natively)
     var down = false, startX = 0, startLeft = 0, moved = false;
     track.addEventListener('pointerdown', function (e) {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
-      down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+      down = true; moved = false; holding = true; glide = null;
+      startX = e.clientX; startLeft = track.scrollLeft;
     });
     window.addEventListener('pointermove', function (e) {
       if (!down) return;
       var dx = e.clientX - startX;
       if (!moved && Math.abs(dx) > 4) { moved = true; track.classList.add('dragging'); }
-      if (moved) track.scrollLeft = startLeft - dx;
+      if (moved) { pos = startLeft - dx; apply(); }
     });
     window.addEventListener('pointerup', function () {
       if (!down) return;
-      down = false;
-      if (moved) {
-        track.classList.remove('dragging');
-        // let snapping settle on the nearest photo
-        track.scrollBy({ left: 0 });
-      }
+      down = false; holding = false;
+      track.classList.remove('dragging');
+      wrap(); apply(); touched();
     });
-    update();
+
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      start();
+    }).observe(track);
+    document.addEventListener('visibilitychange', function () {
+      pageHidden = document.hidden;
+      start();
+    });
+    window.addEventListener('resize', measure);
+    measure();
   })();
 </script>
 </body>
