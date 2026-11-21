@@ -900,8 +900,9 @@
     })();
   </script>
 <script>
-  // Filmstrip: drifts slowly to the left on its own and loops forever. It pauses while
-  // someone hovers, drags, swipes or uses the arrows, and picks up again a moment later.
+  // Filmstrip: drifts slowly to the left on its own and loops forever, from the moment the
+  // page loads. Hovering does not stop it; it only yields while someone drags, swipes or
+  // uses the arrows, then eases back up to speed a moment later.
   (function () {
     var root = document.querySelector('[data-strip]');
     if (!root) return;
@@ -909,13 +910,13 @@
     var imgs = track.querySelectorAll('img');
     var count = +root.getAttribute('data-count');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var SPEED = 32;          // px per second
-    var RESUME_AFTER = 2500; // ms of quiet before drifting again
+    var SPEED = 40;          // px per second
+    var RESUME_AFTER = 900;  // ms of quiet after a drag, swipe or arrow before drifting again
 
     var setW = 0;            // width of one full series, gap included
     var pos = 0;             // where we want scrollLeft to be (kept as a float)
-    var hovering = false, holding = false, visible = false, pageHidden = document.hidden;
-    var lastTouch = 0, last = 0, glide = null, raf = 0;
+    var holding = false, visible = false, pageHidden = document.hidden;
+    var lastTouch = -Infinity, last = 0, glide = null, raf = 0, vel = reduce ? 0 : SPEED;
 
     function measure() {
       var keep = setW ? (pos - setW) / setW : 0;
@@ -941,10 +942,17 @@
         pos = glide.from + (glide.to - glide.from) * e;
         apply();
         if (t === 1) { glide = null; wrap(); apply(); touched(); }
-      } else if (!reduce && !hovering && !holding && now - lastTouch > RESUME_AFTER) {
-        pos += SPEED * dt / 1000;
-        wrap();
-        apply();
+        vel = 0;
+      } else {
+        var go = !reduce && !holding && now - lastTouch > RESUME_AFTER;
+        // ease toward full speed (or toward a stop) instead of jumping
+        vel += ((go ? SPEED : 0) - vel) * Math.min(1, dt / 450);
+        if (!go && holding) vel = 0;
+        if (vel > 0.05) {
+          pos += vel * dt / 1000;
+          wrap();
+          apply();
+        }
       }
       if (visible && !pageHidden) raf = requestAnimationFrame(tick);
     }
@@ -960,8 +968,6 @@
     track.addEventListener('touchstart', function () { holding = true; touched(); }, { passive: true });
     track.addEventListener('touchend', function () { holding = false; touched(); wrap(); });
 
-    track.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hovering = true; });
-    track.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hovering = false; touched(); } });
 
     function step(dir) {
       wrap();
