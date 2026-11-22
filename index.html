@@ -917,21 +917,27 @@
     })();
   </script>
 <script>
-  // Filmstrips: each drifts slowly to the left on its own and loops forever, from the moment
-  // the page loads. Hovering does not stop it; it only yields while someone drags, swipes or
-  // uses the arrows, then eases back up to speed a moment later.
+  // Filmstrips: each drifts slowly to the left on its own and loops forever. Scrolling,
+  // dragging, flicking or the arrows add speed on top of the drift, and that extra speed
+  // fades away smoothly until the strip is back at its normal pace. It never stops and waits.
   document.querySelectorAll('[data-strip]').forEach(function (root) {
     var track = root.querySelector('.strip-track');
     var imgs = track.querySelectorAll('img');
     var count = +root.getAttribute('data-count');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var SPEED = 40;          // px per second
-    var RESUME_AFTER = 900;  // ms of quiet after a drag, swipe or arrow before drifting again
+    var BASE = reduce ? 0 : 40; // drift, px per second
+    var WHEEL_TAU = 140;        // ms: how closely the strip follows a mouse wheel or trackpad
+    var ARROW_TAU = 260;        // ms: how quickly an arrow press glides into place
+    var FLING_TAU = 600;        // ms: how quickly leftover speed fades back to the drift
+    var MAX_FLING = 6000;       // px per second
 
-    var setW = 0;            // width of one full series, gap included
-    var pos = 0;             // where we want scrollLeft to be (kept as a float)
-    var holding = false, visible = false, pageHidden = document.hidden;
-    var lastTouch = -Infinity, last = 0, glide = null, raf = 0, vel = reduce ? 0 : SPEED;
+    var setW = 0;               // width of one full series, gap included
+    var pos = 0;                // where scrollLeft should be (kept as a float)
+    var pending = 0, pendingTau = WHEEL_TAU; // distance still to glide from wheel or arrows
+    var extra = 0;              // speed on top of the drift, fading to 0
+    var holding = false;        // a finger or the mouse button is down on the strip
+    var native = false, nativeAt = 0, nativeVel = 0; // the browser is scrolling (touch momentum)
+    var visible = false, pageHidden = document.hidden, last = 0, raf = 0;
 
     function measure() {
       var keep = setW ? (pos - setW) / setW : 0;
@@ -945,50 +951,70 @@
       else if (pos < setW) pos += setW;
     }
     function apply() { track.scrollLeft = pos; }
-    function touched() { lastTouch = performance.now(); }
+    function clamp(v) { return Math.max(-MAX_FLING, Math.min(MAX_FLING, v)); }
 
     function tick(now) {
       raf = 0;
       var dt = last ? Math.min(now - last, 100) : 0;
       last = now;
-      if (glide) {
-        var t = Math.min(1, (now - glide.t0) / glide.dur);
-        var e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        pos = glide.from + (glide.to - glide.from) * e;
+      if (native && !holding && now - nativeAt > 90) {
+        // the browser's own momentum has finished: carry on at its last speed
+        native = false;
+        extra = clamp(nativeVel) - BASE;
+        wrap();
+      }
+      if (!holding && !native && dt) {
+        var k = Math.exp(-dt / FLING_TAU);
+        var move = BASE * dt / 1000 + extra * (FLING_TAU / 1000) * (1 - k);
+        extra *= k;
+        var kp = Math.exp(-dt / pendingTau);
+        move += pending * (1 - kp);
+        pending *= kp;
+        if (Math.abs(pending) < 0.05) pending = 0;
+        pos += move;
+        wrap();
         apply();
-        if (t === 1) { glide = null; wrap(); apply(); touched(); }
-        vel = 0;
-      } else {
-        var go = !reduce && !holding && now - lastTouch > RESUME_AFTER;
-        // ease toward full speed (or toward a stop) instead of jumping
-        vel += ((go ? SPEED : 0) - vel) * Math.min(1, dt / 450);
-        if (!go && holding) vel = 0;
-        if (vel > 0.05) {
-          pos += vel * dt / 1000;
-          wrap();
-          apply();
-        }
       }
       if (visible && !pageHidden) raf = requestAnimationFrame(tick);
     }
     function start() { if (!raf && visible && !pageHidden) { last = 0; raf = requestAnimationFrame(tick); } }
 
-    // the reader scrolled by hand (trackpad, swipe, keyboard): follow along
-    track.addEventListener('scroll', function () {
-      if (Math.abs(track.scrollLeft - pos) > 2 && !glide) {
-        pos = track.scrollLeft;
-        touched();
-      }
-    }, { passive: true });
-    track.addEventListener('touchstart', function () { holding = true; touched(); }, { passive: true });
-    track.addEventListener('touchend', function () { holding = false; touched(); wrap(); });
+    // mouse wheel and trackpad: sideways movement moves the strip, up and down still scrolls the page
+    track.addEventListener('wheel', function (e) {
+      var dx = e.deltaX, dy = e.deltaY;
+      if (e.shiftKey && !dx) { dx = dy; dy = 0; }
+      if (Math.abs(dx) <= Math.abs(dy)) return;
+      e.preventDefault();
+      if (e.deltaMode === 1) dx *= 40;
+      else if (e.deltaMode === 2) dx *= track.clientWidth;
+      pending += dx;
+      pendingTau = WHEEL_TAU;
+      start();
+    }, { passive: false });
 
+    // anything else that scrolls the track natively (a swipe on a phone and its momentum): follow it
+    track.addEventListener('scroll', function () {
+      var sl = track.scrollLeft;
+      if (Math.abs(sl - pos) <= 2) return;   // our own movement
+      var t = performance.now();
+      if (native && t - nativeAt < 150) {
+        var v = (sl - pos) / Math.max(t - nativeAt, 1) * 1000;
+        nativeVel = nativeVel * 0.5 + v * 0.5;
+      } else {
+        nativeVel = 0;
+      }
+      native = true; nativeAt = t; pos = sl; pending = 0; extra = 0;
+    }, { passive: true });
+    track.addEventListener('touchstart', function () { holding = true; pending = 0; extra = 0; }, { passive: true });
+    track.addEventListener('touchend', function () {
+      holding = false;
+      // lifted without a flick: ease up from a standstill
+      if (!native || performance.now() - nativeAt > 60) { native = false; extra = -BASE; wrap(); }
+    });
 
     function step(dir) {
-      wrap();
-      var from = glide ? pos : track.scrollLeft;
-      pos = from;
-      glide = { from: from, to: from + dir * track.clientWidth * 0.8, t0: performance.now(), dur: reduce ? 1 : 700 };
+      pending += dir * track.clientWidth * 0.8;
+      pendingTau = reduce ? 1 : ARROW_TAU;
       start();
     }
     root.querySelectorAll('.strip-btn').forEach(function (b) {
@@ -999,24 +1025,33 @@
       if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
     });
 
-    // click and drag with a mouse (touch and trackpads scroll natively)
-    var down = false, startX = 0, startLeft = 0, moved = false;
+    // click and drag with a mouse; letting go mid-drag flings it, then it settles back to the drift
+    var down = false, startX = 0, startLeft = 0, moved = false, samples = [];
     track.addEventListener('pointerdown', function (e) {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
-      down = true; moved = false; holding = true; glide = null;
-      startX = e.clientX; startLeft = track.scrollLeft;
+      down = true; moved = false; holding = true; pending = 0; extra = 0;
+      startX = e.clientX; startLeft = pos;
+      samples = [[performance.now(), pos]];
     });
     window.addEventListener('pointermove', function (e) {
       if (!down) return;
       var dx = e.clientX - startX;
       if (!moved && Math.abs(dx) > 4) { moved = true; track.classList.add('dragging'); }
-      if (moved) { pos = startLeft - dx; apply(); }
+      if (moved) {
+        pos = startLeft - dx; apply();
+        var t = performance.now();
+        samples.push([t, pos]);
+        while (samples.length > 2 && t - samples[0][0] > 100) samples.shift();
+      }
     });
     window.addEventListener('pointerup', function () {
       if (!down) return;
       down = false; holding = false;
       track.classList.remove('dragging');
-      wrap(); apply(); touched();
+      var t = performance.now(), v = 0, first = samples[0], lastS = samples[samples.length - 1];
+      if (moved && t - lastS[0] < 80 && lastS[0] > first[0]) v = (lastS[1] - first[1]) / (lastS[0] - first[0]) * 1000;
+      if (moved) extra = clamp(v) - BASE;
+      wrap(); apply();
     });
 
     new IntersectionObserver(function (entries) {
