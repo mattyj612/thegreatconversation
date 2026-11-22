@@ -233,6 +233,41 @@
     .vbtn svg { width: 16px; height: 16px; flex: none; }
     .vbtn[hidden] { display: none; }
 
+    /* ---------- FILMSTRIP (drifts slowly sideways, loops, every photo at its own shape) ---------- */
+    .strip {
+      --edge: max(var(--pad), calc((100vw - var(--maxw)) / 2 + var(--pad)));
+      --sh: clamp(300px, 34vw, 480px);
+      position: relative;
+    }
+    .strip-track {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      /* runs edge to edge of the screen */
+      scrollbar-width: none;
+      cursor: grab;
+      outline: none;
+    }
+    .strip-track::-webkit-scrollbar { display: none; }
+    .strip-track.dragging { cursor: grabbing; }
+    .strip-track img {
+      flex: none;
+      height: var(--sh);
+      width: auto;
+      display: block;
+      background: var(--blue-deep);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .strip-ui {
+      display: flex;
+      justify-content: flex-end;
+      margin: clamp(14px, 2vw, 22px) var(--edge) 0;
+    }
+    .strip-arrows { display: flex; gap: 8px; }
+    .strip-btn { background: transparent; padding: 9px 12px; }
+
     /* ---------- SECTIONS ---------- */
     section.band {
       position: relative;
@@ -614,68 +649,107 @@
 
   <!-- ============ PHOTOS ============ -->
   <section class="band" id="photos" aria-label="Photographs from the evening">
-    <div class="wrap">
-      <div class="montage full" style="margin-top:0">
-        <div class="row">
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02295.jpg" alt="Guests in conversation before the lecture" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5050.jpg" alt="Attendees reading the program before the lecture" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.5"><img src="/photos/DSC02549.jpg" alt="Attendees watching attentively" loading="lazy"></div>
-        </div>
-        <div class="row">
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02487.jpg" alt="Matthew Jordan delivering the lecture" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5109.jpg" alt="A packed theatre" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5126.jpg" alt="The audience during the lecture" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.15"><img src="/photos/RCL_5103.jpg" alt="A camera operator filming the lecture" loading="lazy"></div>
-        </div>
-        <div class="row tall">
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5207.jpg" alt="An attendee applauding from an armchair" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5214.jpg" alt="The organizers' panel on stage" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02611.jpg" alt="An attendee smiling with a microphone" loading="lazy"></div>
-        </div>
-        <div class="row">
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02717.jpg" alt="An attendee asks a question at the microphone" loading="lazy"></div>
-          <div class="ph" style="flex-grow:1.5"><img src="/photos/RCL_5245.jpg" alt="An audience member at the microphone" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_5095.jpg" alt="Attendees in the theatre seats" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.75"><img src="/photos/livestream.jpg" alt="The livestream crew at the sound desk" loading="lazy"></div>
+    <div class="strip" data-strip data-count="14">
+      <div class="strip-track" tabindex="0" aria-label="Photographs from the evening, scroll sideways">
+        <img src="/photos/DSC02295.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5050.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5095.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02487.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5109.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5126.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02549.jpg" width="1800" height="1200" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5103.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5214.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5207.jpg" width="1201" height="1799" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02611.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02717.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5245.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/livestream.jpg" width="1350" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02295.jpg" width="1200" height="1800" alt="Guests in conversation before the lecture" loading="eager" draggable="false">
+        <img src="/photos/RCL_5050.jpg" width="1800" height="1201" alt="Attendees reading the program before the lecture" loading="eager" draggable="false">
+        <img src="/photos/RCL_5095.jpg" width="1201" height="1800" alt="Attendees in the theatre seats" loading="eager" draggable="false">
+        <img src="/photos/DSC02487.jpg" width="1200" height="1800" alt="Matthew Jordan delivering the lecture" loading="eager" draggable="false">
+        <img src="/photos/RCL_5109.jpg" width="1800" height="1201" alt="A packed theatre" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5126.jpg" width="1201" height="1800" alt="The audience during the lecture" loading="lazy" draggable="false">
+        <img src="/photos/DSC02549.jpg" width="1800" height="1200" alt="Attendees watching attentively" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5103.jpg" width="1800" height="1201" alt="A camera operator filming the lecture" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5214.jpg" width="1800" height="1201" alt="The organizers' panel on stage" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5207.jpg" width="1201" height="1799" alt="An attendee applauding from an armchair" loading="lazy" draggable="false">
+        <img src="/photos/DSC02611.jpg" width="1200" height="1800" alt="An attendee smiling with a microphone" loading="lazy" draggable="false">
+        <img src="/photos/DSC02717.jpg" width="1200" height="1800" alt="An attendee asks a question at the microphone" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5245.jpg" width="1800" height="1201" alt="An audience member at the microphone" loading="lazy" draggable="false">
+        <img src="/photos/livestream.jpg" width="1350" height="1800" alt="The livestream crew at the sound desk" loading="lazy" draggable="false">
+        <img src="/photos/DSC02295.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5050.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5095.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02487.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5109.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5126.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02549.jpg" width="1800" height="1200" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5103.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5214.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5207.jpg" width="1201" height="1799" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02611.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02717.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_5245.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/livestream.jpg" width="1350" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+      </div>
+      <div class="strip-ui">
+        <div class="strip-arrows">
+          <button class="vbtn strip-btn" type="button" data-dir="-1" aria-label="Previous photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="vbtn strip-btn" type="button" data-dir="1" aria-label="Next photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ BOOK FAIR & SPONSORS ============ -->
-  <section class="band" id="bookfair">
-    <div class="wrap">
-      <div class="two-col" style="align-items:center">
-        <img class="feature-img" src="/photos/RCL_4970.jpg" alt="An overhead view of the book fair tables" loading="lazy">
-        <div class="col-text">
-          <p class="body-copy mid">The event brought together publications that are shaping the global conversation about technology: Colossus, Stripe Press, Asterisk, and Orbital Studies.</p>
-          <p class="body-copy mid">We are grateful to our lead sponsors <span class="sponsors-line">Notion, Cursor, and Ambition</span>, supported by Ambrook, Colossus, and Positive Sum Ventures.</p>
-        </div>
-      </div>
-
-      <div class="montage full">
-        <div class="row">
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4925.jpg" alt="Books on display" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4968.jpg" alt="An overhead view of the book tables" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4961.jpg" alt="Guests browsing the book fair" loading="lazy"></div>
-        </div>
-        <!-- Portrait sponsor photos from /retro: kept tall so the signage at top and bottom stays in frame -->
-        <div class="row tall">
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4840.jpg" alt="A sponsor booth at the book fair" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/DSC02362.jpg" alt="A speaker addressing the room" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4905.jpg" alt="An attendee at the book fair" loading="lazy"></div>
-          <div class="ph" style="flex-grow:0.667"><img src="/photos/RCL_4904.jpg" alt="A reader holding a publisher's book" loading="lazy"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ WATCH PARTIES & THE THEME ============ -->
+  <!-- ============ BOOK FAIR, WATCH PARTIES & THE THEME ============ -->
   <section class="band" id="response">
     <div class="wrap">
       <div class="two-col">
-        <p class="body-copy mid">Ten groups gathered for watch parties around the world, including in Japan, New Zealand, and Vancouver, and for a special screening in the House of Commons in Ottawa.</p>
+        <div class="col-text">
+          <p class="body-copy mid">The event brought together publications that are shaping the global conversation about technology: Colossus, Stripe Press, Asterisk, and Orbital Studies.</p>
+          <p class="body-copy mid">Ten groups gathered for watch parties around the world, including in Japan, New Zealand, and Vancouver, and for a special screening in the House of Commons in Ottawa.</p>
+        </div>
         <p class="body-copy mid">Across all of the discussions, both in watch parties and in the room, one theme stood out above the rest: Knowledge is embedded in social relationships and passed face-to-face. Books and artifacts are useful as storage mechanisms, but living knowledge lies in people, and follows them where they go.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOOK FAIR & SPONSOR PHOTOS ============ -->
+  <section class="band" id="bookfair" aria-label="Photographs from the book fair">
+    <div class="strip" data-strip data-count="8">
+      <div class="strip-track" tabindex="0" aria-label="Photographs from the book fair, scroll sideways">
+        <img src="/photos/RCL_4970.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4925.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4961.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4840.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4968.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4905.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4904.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02362.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4970.jpg" width="1800" height="1201" alt="An overhead view of the book fair tables" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4925.jpg" width="1201" height="1800" alt="Books on display" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4961.jpg" width="1201" height="1800" alt="Guests browsing the book fair" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4840.jpg" width="1201" height="1800" alt="A sponsor booth at the book fair" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4968.jpg" width="1201" height="1800" alt="An overhead view of the book tables" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4905.jpg" width="1201" height="1800" alt="An attendee at the book fair" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4904.jpg" width="1201" height="1800" alt="A reader holding a publisher's book" loading="lazy" draggable="false">
+        <img src="/photos/DSC02362.jpg" width="1200" height="1800" alt="A speaker addressing the room" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4970.jpg" width="1800" height="1201" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4925.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4961.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4840.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4968.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4905.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/RCL_4904.jpg" width="1201" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+        <img src="/photos/DSC02362.jpg" width="1200" height="1800" alt="" aria-hidden="true" loading="lazy" draggable="false">
+      </div>
+      <div class="strip-ui">
+        <div class="strip-arrows">
+          <button class="vbtn strip-btn" type="button" data-dir="-1" aria-label="Previous photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="vbtn strip-btn" type="button" data-dir="1" aria-label="Next photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
       </div>
     </div>
   </section>
@@ -842,5 +916,120 @@
       if (location.hash === '#manifesto') open();
     })();
   </script>
+<script>
+  // Filmstrips: each drifts slowly to the left on its own and loops forever, from the moment
+  // the page loads. Hovering does not stop it; it only yields while someone drags, swipes or
+  // uses the arrows, then eases back up to speed a moment later.
+  document.querySelectorAll('[data-strip]').forEach(function (root) {
+    var track = root.querySelector('.strip-track');
+    var imgs = track.querySelectorAll('img');
+    var count = +root.getAttribute('data-count');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var SPEED = 40;          // px per second
+    var RESUME_AFTER = 900;  // ms of quiet after a drag, swipe or arrow before drifting again
+
+    var setW = 0;            // width of one full series, gap included
+    var pos = 0;             // where we want scrollLeft to be (kept as a float)
+    var holding = false, visible = false, pageHidden = document.hidden;
+    var lastTouch = -Infinity, last = 0, glide = null, raf = 0, vel = reduce ? 0 : SPEED;
+
+    function measure() {
+      var keep = setW ? (pos - setW) / setW : 0;
+      setW = imgs[count].offsetLeft - imgs[0].offsetLeft;
+      pos = setW + keep * setW;
+      track.scrollLeft = pos;
+    }
+    // keep pos inside the middle copy so there is always room on both sides
+    function wrap() {
+      if (pos >= 2 * setW) pos -= setW;
+      else if (pos < setW) pos += setW;
+    }
+    function apply() { track.scrollLeft = pos; }
+    function touched() { lastTouch = performance.now(); }
+
+    function tick(now) {
+      raf = 0;
+      var dt = last ? Math.min(now - last, 100) : 0;
+      last = now;
+      if (glide) {
+        var t = Math.min(1, (now - glide.t0) / glide.dur);
+        var e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        pos = glide.from + (glide.to - glide.from) * e;
+        apply();
+        if (t === 1) { glide = null; wrap(); apply(); touched(); }
+        vel = 0;
+      } else {
+        var go = !reduce && !holding && now - lastTouch > RESUME_AFTER;
+        // ease toward full speed (or toward a stop) instead of jumping
+        vel += ((go ? SPEED : 0) - vel) * Math.min(1, dt / 450);
+        if (!go && holding) vel = 0;
+        if (vel > 0.05) {
+          pos += vel * dt / 1000;
+          wrap();
+          apply();
+        }
+      }
+      if (visible && !pageHidden) raf = requestAnimationFrame(tick);
+    }
+    function start() { if (!raf && visible && !pageHidden) { last = 0; raf = requestAnimationFrame(tick); } }
+
+    // the reader scrolled by hand (trackpad, swipe, keyboard): follow along
+    track.addEventListener('scroll', function () {
+      if (Math.abs(track.scrollLeft - pos) > 2 && !glide) {
+        pos = track.scrollLeft;
+        touched();
+      }
+    }, { passive: true });
+    track.addEventListener('touchstart', function () { holding = true; touched(); }, { passive: true });
+    track.addEventListener('touchend', function () { holding = false; touched(); wrap(); });
+
+
+    function step(dir) {
+      wrap();
+      var from = glide ? pos : track.scrollLeft;
+      pos = from;
+      glide = { from: from, to: from + dir * track.clientWidth * 0.8, t0: performance.now(), dur: reduce ? 1 : 700 };
+      start();
+    }
+    root.querySelectorAll('.strip-btn').forEach(function (b) {
+      b.addEventListener('click', function () { step(+b.getAttribute('data-dir')); });
+    });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+    });
+
+    // click and drag with a mouse (touch and trackpads scroll natively)
+    var down = false, startX = 0, startLeft = 0, moved = false;
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = false; holding = true; glide = null;
+      startX = e.clientX; startLeft = track.scrollLeft;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) { moved = true; track.classList.add('dragging'); }
+      if (moved) { pos = startLeft - dx; apply(); }
+    });
+    window.addEventListener('pointerup', function () {
+      if (!down) return;
+      down = false; holding = false;
+      track.classList.remove('dragging');
+      wrap(); apply(); touched();
+    });
+
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      start();
+    }).observe(track);
+    document.addEventListener('visibilitychange', function () {
+      pageHidden = document.hidden;
+      start();
+    });
+    window.addEventListener('resize', measure);
+    measure();
+  });
+</script>
 </body>
 </html>
