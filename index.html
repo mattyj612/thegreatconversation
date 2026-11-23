@@ -189,31 +189,6 @@
     }
     .masthead-meta b { color: var(--fg); font-weight: 600; margin-right: 0.6em; }
 
-    /* ---------- TEASER (full-bleed, autoplays muted when scrolled into view) ---------- */
-    /* Sits on the blue field like every other block, with the same top spacing as a
-       section band, so the masthead and the video read as two separate pieces. */
-    .teaser {
-      position: relative;
-      z-index: 1;
-      padding-top: var(--gap);
-    }
-    .teaser video {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 100svh;
-      aspect-ratio: 16 / 9;
-      margin: 0 auto;
-      background: var(--ink);
-    }
-    .teaser-controls {
-      position: absolute;
-      right: var(--pad);
-      bottom: clamp(14px, 2.4vw, 28px);
-      display: flex;
-      gap: 8px;
-      z-index: 2;
-    }
     .vbtn {
       font: inherit;
       font-size: clamp(0.8rem, 1.2vw, 0.95rem);
@@ -583,7 +558,6 @@
       .title-sub { margin-top: 0.5rem; }
       .two-col { grid-template-columns: 1fr; gap: 22px; }
       .lead { max-width: none; }
-      .teaser-controls { right: 12px; bottom: 12px; }
       .sponsor-strip { --k: 0.13; }
       .letter-dialog { width: 100vw; max-height: none; height: 100svh; margin: 0; }
 
@@ -612,26 +586,6 @@
       <p class="masthead-meta"><b>May 27, 2026</b> Isabel Bader Theatre, Toronto</p>
     </div>
   </header>
-
-  <!-- ============ TEASER ============ -->
-  <section class="teaser" id="teaser" aria-label="Teaser trailer">
-    <video id="teaser-video" muted playsinline preload="metadata"
-           poster="/video/tgc-teaser-poster.jpg"
-           data-src-hd="/video/tgc-teaser-1080.mp4"
-           data-src-sd="/video/tgc-teaser-720.mp4">
-      <source src="/video/tgc-teaser-720.mp4" type="video/mp4">
-    </video>
-    <div class="teaser-controls">
-      <button class="vbtn" id="teaser-sound" type="button" aria-pressed="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="wave" d="M17 9l4 6M21 9l-4 6"/></svg>
-        <span>Sound on</span>
-      </button>
-      <button class="vbtn" id="teaser-replay" type="button" hidden>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v5h5"/></svg>
-        <span>Replay</span>
-      </button>
-    </div>
-  </section>
 
   <!-- ============ THE EVENING ============ -->
   <section class="band" id="evening">
@@ -865,47 +819,6 @@
   </footer>
 
   <script>
-    // ---- Teaser: pick a resolution, autoplay (muted) while on screen, pause when not ----
-    (function () {
-      const v = document.getElementById('teaser-video');
-      const soundBtn = document.getElementById('teaser-sound');
-      const replayBtn = document.getElementById('teaser-replay');
-      if (!v) return;
-
-      const wantHD = window.innerWidth * (window.devicePixelRatio || 1) > 1700;
-      if (wantHD) {
-        v.querySelector('source').src = v.dataset.srcHd;
-        v.load();
-      }
-
-      let ended = false;
-      const io = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting && !ended) v.play().catch(() => {});
-        else if (!entry.isIntersecting) v.pause();
-      }, { threshold: 0.5 });
-      io.observe(v);
-
-      const setSound = (on) => {
-        v.muted = !on;
-        soundBtn.setAttribute('aria-pressed', String(on));
-        soundBtn.querySelector('span').textContent = on ? 'Sound off' : 'Sound on';
-        soundBtn.querySelector('.wave').setAttribute('d', on ? 'M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12' : 'M17 9l4 6M21 9l-4 6');
-      };
-      soundBtn.addEventListener('click', () => {
-        setSound(v.muted);
-        if (v.paused && !ended) v.play().catch(() => {});
-      });
-      v.addEventListener('click', () => setSound(v.muted));
-
-      v.addEventListener('ended', () => { ended = true; replayBtn.hidden = false; });
-      replayBtn.addEventListener('click', () => {
-        ended = false;
-        replayBtn.hidden = true;
-        v.currentTime = 0;
-        v.play().catch(() => {});
-      });
-    })();
-
     // ---- Manifesto pop-up: opens from the button or a #manifesto link ----
     (function () {
       const dlg = document.getElementById('manifesto');
