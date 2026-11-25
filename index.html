@@ -41,16 +41,13 @@
       --ink: #07070a;
       --fg: #f6f6f8;
       --muted: rgba(246,246,248,0.72);
-      /* the banner art's own grid: 30 cells across, each line 1/1200 of the width, 10% white
-         laid twice. It is drawn once, behind everything, and the art is transparent over it. */
+      /* one faint 1px grid behind everything, the banner art included. It is 30 cells across,
+         like the art, so the squares sit on it. The line straddles each cell edge. */
       --grid-w: 100vw;
       --cell: calc(var(--grid-w) / 30);
-      --half: calc(var(--grid-w) / 2400);   /* half a line */
-      --soft: 0.5px;                        /* one screen pixel of smoothing at the line's edges */
-      --ln: rgba(255,255,255,0.193);
-      --stops: var(--ln) 0, var(--ln) calc(var(--half) - var(--soft) / 2),
-               transparent calc(var(--half) + var(--soft) / 2), transparent calc(var(--cell) - var(--half) - var(--soft) / 2),
-               var(--ln) calc(var(--cell) - var(--half) + var(--soft) / 2), var(--ln) var(--cell);
+      --ln: rgba(174,190,255,0.16);
+      --after: 0.6px; --before: 0.4px;
+      --stops: var(--ln) 0 var(--after), transparent var(--after) calc(var(--cell) - var(--before)), var(--ln) calc(var(--cell) - var(--before)) var(--cell);
       --grid: repeating-linear-gradient(to right, var(--stops)), repeating-linear-gradient(to bottom, var(--stops));
       --maxw: 1180px;
       --pad: clamp(20px, 5vw, 72px);
@@ -58,8 +55,9 @@
       --gap: clamp(40px, 6vw, 84px);
     }
 
-    @media (max-resolution: 1.25dppx) { :root { --soft: 1px; } }
-    @media (min-resolution: 2.5dppx) { :root { --soft: 0.34px; } }
+    /* zoomed out: keep each line at least one screen pixel so none drop out */
+    @media (max-resolution: 0.99dppx) { :root { --after: 0.8px; --before: 0.54px; } }
+    @media (max-resolution: 0.74dppx) { :root { --after: 1.2px; --before: 0.8px; } }
 
     * { box-sizing: border-box; cursor: url('/cursor.svg') 28 28, auto; }
     ::selection { background: #fff; color: var(--blue); }
@@ -85,7 +83,6 @@
       pointer-events: none;
       z-index: 0;
       background-image: var(--grid);
-      mix-blend-mode: plus-lighter;
     }
 
     .wrap {
