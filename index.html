@@ -18,9 +18,6 @@
   <meta name="twitter:description" content="A lecture by Matthew Jordan during Toronto Tech Week 2026. Presented by the Toronto Society, irid, and Wygo.">
   <meta name="twitter:image" content="https://thegreatconversation.ca/og-banner.jpg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: "PP Neue Montreal";
@@ -323,7 +320,6 @@
     }
     .link-btn.ghost:hover { background: var(--fg); color: var(--blue); }
     .link-btn svg { width: 20px; height: 20px; flex: none; }
-    .read-btn { align-self: flex-start; margin-top: clamp(22px, 2.6vw, 32px); }
 
     /* Closing line above the team photo */
     .next-msg {
@@ -350,79 +346,6 @@
       width: 100%;
       height: auto;
     }
-
-    /* ---------- MANIFESTO POP-UP ----------
-       The playbill's "Letter from the Director", read in an overlay on the blue grid. */
-    .letter-dialog {
-      width: min(860px, calc(100vw - 2 * var(--pad)));
-      max-width: none;
-      max-height: calc(100svh - 2 * clamp(16px, 4vw, 48px));
-      padding: 0;
-      border: 0;
-      outline: none;
-      color: var(--fg);
-      background-color: var(--blue);
-      background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size: var(--cell) var(--cell);
-      background-attachment: local;
-      box-shadow: 0 30px 90px rgba(0,0,0,0.5);
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      scrollbar-width: none;
-    }
-    .letter-dialog::backdrop { background: rgba(7,7,10,0.68); backdrop-filter: blur(4px); }
-    .letter-dialog[open] { animation: letter-in 0.22s ease-out; }
-    @keyframes letter-in { from { opacity: 0; transform: translateY(14px); } }
-    .letter-bar {
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      display: flex;
-      justify-content: flex-end;
-      height: 0;
-    }
-    .letter-close {
-      margin: 14px 14px 0 0;
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      background: var(--fg);
-      color: var(--blue);
-      border: 0;
-      padding: 0;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-    .letter-close:hover { background: var(--ink); color: var(--fg); }
-    .letter-close svg { width: 18px; height: 18px; }
-    /* top padding clears the sticky close button */
-    .letter-inner { padding: clamp(72px, 8vw, 92px) clamp(22px, 6vw, 76px) clamp(36px, 5vw, 64px); }
-    .letter {
-      max-width: 34em;
-      font-family: "Newsreader", Georgia, "Times New Roman", serif;
-      font-size: clamp(1.1rem, 1.6vw, 1.28rem);
-      line-height: 1.6;
-      letter-spacing: -0.005em;
-    }
-    .letter p { margin: 0 0 1.15em; }
-    .letter p.first::first-letter {
-      float: left;
-      font-size: 4.1em;
-      line-height: 0.82;
-      padding: 0.07em 0.08em 0 0;
-    }
-    .letter .pull {
-      margin: 1.5em 0 1.6em;
-      padding: 0;
-      font-style: italic;
-      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-    }
-    .letter .pull:last-child { margin-bottom: 0; }
-    html.letter-open { overflow: hidden; }
 
     /* ---------- SPONSOR LOGOS ----------
        --w is each logo's width at the playbill's scale, so a single factor (--k) keeps
@@ -495,7 +418,6 @@
       .two-col { grid-template-columns: 1fr; gap: 22px; }
       .lead { max-width: none; }
       .sponsor-strip { --k: 0.13; }
-      .letter-dialog { width: 100vw; max-height: none; height: 100svh; margin: 0; }
 
     }
   </style>
@@ -549,7 +471,6 @@
       <div class="two-col">
         <div class="col-text">
           <p class="lead">The Great Conversation is a yearly gathering in Toronto exploring the intellectual lineages that make technology possible.</p>
-          <a class="link-btn ghost read-btn" href="#manifesto" data-open-letter>Read the manifesto <span aria-hidden="true">→</span></a>
         </div>
         <div class="col-text">
           <p class="body-copy mid">Our first event took place May 27, 2026 at the Isabel Bader Theatre, where we convened 500 builders, writers, and artists.</p>
@@ -746,42 +667,6 @@
     </div>
   </section>
 
-  <!-- ============ MANIFESTO (pop-up) ============ -->
-  <dialog class="letter-dialog" id="manifesto" aria-label="The Great Conversation manifesto">
-    <div class="letter-bar">
-      <button class="letter-close" type="button" aria-label="Close the letter">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
-      </button>
-    </div>
-    <div class="letter-inner">
-      <article class="letter">
-      <p class="first">What we think of as “daily life” is made possible by arcane scribblings and practices that stretch back farther than we can name, transmitted by conversation down to the present day.</p>
-
-      <p>Tuning into this Great Conversation allows you to leave your mark on our shared cultural canon. By understanding which giants’ shoulders you stand on, you become more free in the way you move about the world and capable of exercising your autonomy by knowing whose ideas are most influencing your own. These are beautiful and worthwhile ends.</p>
-
-      <p>But do not mistake this for a mere act of personal interest or curiosity. This is existential. Knowledge does not transmit itself and can always disappear. We can go to the moon then abandon the talent that got us there, leaving us unable to return for decades. We can outsource our craft knowledge, stop training our apprentices, and collectively forget how to build. We can offload our difficult decisions to consultants or to machines, and lose our ability to think for ourselves.</p>
-
-      <blockquote class="pull">We can go to the moon then abandon the talent that got us there, leaving us unable to return for decades.</blockquote>
-
-      <p>And beyond technical know-how, we risk losing the knowledge of what it means to be a human participant in this project: the stories, traditions, and virtues that make our lives worth living. This knowledge does not lie in textbooks, nor in the artifacts we build, but in ourselves.</p>
-
-      <p>This is why the conversation about technology is often so muddled. “Technology” is usually invoked to describe tools and products: the steam engine, the iPhone, Claude. But “technology” is far more than these artifacts. “Technology” requires us to understand technical know-how, the coordinating of people in institutions, the visions of the world that our tools are designed to actualize.</p>
-
-      <p>All of these—craft practices, human arrangements, culture—are fundamentally social. Technology is an inherently collaborative enterprise. Collaboration requires trust, and trust requires shared stakes, which can only be generated by struggling with the real world, face-to-face, together.</p>
-
-      <blockquote class="pull">Collaboration requires trust, and trust requires shared stakes, which can only be generated by struggling with the real world, face-to-face, together.</blockquote>
-
-      <p>The work of technology is not limited to one kind of person. Artists, scientists, writers, entrepreneurs, academics, engineers, designers, policy-makers—we are all technologists.</p>
-
-      <p>Canadians have a unique part to play in setting this shared vision of technology. We are part of many traditions in tandem. We take the best from elsewhere, travelling to the “source” and bringing insights home, while also taking big swings of our own, initiating schools of thought that are distinctly Canadian.</p>
-
-      <p>Our work now is as it’s always been: take the best of our great inheritance and use it to drive the world forward. It is up to each of us to carry on the work of the human project together. The Great Conversation is about introducing you to your ancestors, for the good of your work, for the good of your spirit, and for the good of the world.</p>
-
-      <blockquote class="pull">The Great Conversation is about introducing you to your ancestors, for the good of your work, for the good of your spirit, and for the good of the world.</blockquote>
-      </article>
-    </div>
-  </dialog>
-
   <footer>
     <div class="footer-inner">
       <span>May 27, 2026</span>
@@ -790,32 +675,6 @@
     </div>
   </footer>
 
-  <script>
-    // ---- Manifesto pop-up: opens from the button or a #manifesto link ----
-    (function () {
-      const dlg = document.getElementById('manifesto');
-      if (!dlg) return;
-      const open = () => {
-        if (dlg.open) return;
-        dlg.showModal();
-        dlg.scrollTop = 0;
-        document.documentElement.classList.add('letter-open');
-        if (location.hash !== '#manifesto') history.replaceState(null, '', '#manifesto');
-      };
-      document.querySelectorAll('[data-open-letter]').forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); open(); }));
-      dlg.querySelector('.letter-close').addEventListener('click', () => dlg.close());
-      // a click on the dimmed backdrop (outside the panel) closes it
-      dlg.addEventListener('click', (e) => {
-        const r = dlg.getBoundingClientRect();
-        if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
-      });
-      dlg.addEventListener('close', () => {
-        document.documentElement.classList.remove('letter-open');
-        if (location.hash === '#manifesto') history.replaceState(null, '', location.pathname + location.search);
-      });
-      if (location.hash === '#manifesto') open();
-    })();
-  </script>
 <script>
   // Filmstrips: each drifts slowly to the left on its own and loops forever. Scrolling,
   // dragging, flicking or the arrows add speed on top of the drift, and that extra speed
