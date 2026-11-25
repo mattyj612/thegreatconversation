@@ -41,23 +41,22 @@
       --ink: #07070a;
       --fg: #f6f6f8;
       --muted: rgba(246,246,248,0.72);
-      /* one faint 1px grid behind everything, the banner art included. It is 30 cells across,
-         like the art, so the squares sit on it. The line straddles each cell edge. */
-      --grid-w: 100vw;
-      --cell: calc(var(--grid-w) / 30);
-      --ln: rgba(174,190,255,0.16);
-      --after: 0.6px; --before: 0.4px;
-      --stops: var(--ln) 0 var(--after), transparent var(--after) calc(var(--cell) - var(--before)), var(--ln) calc(var(--cell) - var(--before)) var(--cell);
-      --grid: repeating-linear-gradient(to right, var(--stops)), repeating-linear-gradient(to bottom, var(--stops));
+      /* One faint 1px grid behind everything, the banner art included. The art is 30 cells
+         across (15 on phones). Cells are rounded up to whole pixels so no line is ever skipped,
+         and the art is sized from the cell (64 of its units), so the squares sit on the grid. */
+      --cols: 30;
+      --cell: calc(100vw / var(--cols));
+      --u: calc(var(--cell) / 64);
+      --grid: rgba(174,190,255,0.16);
       --maxw: 1180px;
       --pad: clamp(20px, 5vw, 72px);
       /* one vertical rhythm between every block on the page */
       --gap: clamp(40px, 6vw, 84px);
     }
 
-    /* zoomed out: keep each line at least one screen pixel so none drop out */
-    @media (max-resolution: 0.99dppx) { :root { --after: 0.8px; --before: 0.54px; } }
-    @media (max-resolution: 0.74dppx) { :root { --after: 1.2px; --before: 0.8px; } }
+    @supports (width: round(up, 1px, 1px)) {
+      :root { --cell: round(up, calc(100vw / var(--cols)), 1px); }
+    }
 
     * { box-sizing: border-box; cursor: url('/cursor.svg') 28 28, auto; }
     ::selection { background: #fff; color: var(--blue); }
@@ -82,7 +81,10 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background-image: var(--grid);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: var(--cell) var(--cell);
     }
 
     .wrap {
@@ -103,7 +105,6 @@
     /* The collage in layers, drawn in the art file's own units (1920 across). The squares are
        separate so they can pop in and out; "guest" squares start hidden. */
     .art {
-      --u: calc(100vw / 1920);
       --x0: 0;
       position: relative;
       height: calc(var(--u) * 1152);  /* 18 grid cells */
@@ -124,11 +125,11 @@
     /* sized off the art, so the title sits exactly where it was drawn at every width */
     .title {
       position: absolute;
-      top: 7.16vw;
-      left: 7.5vw;
+      top: calc(var(--u) * 137.5);
+      left: calc(var(--u) * 144);
       margin: 0;
       font-weight: 600;
-      font-size: 6.51vw;
+      font-size: calc(var(--u) * 125);
       line-height: 0.859;
       letter-spacing: -0.029em;
     }
@@ -361,7 +362,10 @@
       outline: none;
       color: var(--fg);
       background-color: var(--blue);
-      background-image: var(--grid);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: var(--cell) var(--cell);
       background-attachment: local;
       box-shadow: 0 30px 90px rgba(0,0,0,0.5);
       overflow-y: auto;
@@ -476,8 +480,8 @@
 
     /* phones: the right-hand half of the art, with the title underneath */
     @media (max-width: 699px) {
-      :root { --grid-w: 200vw; } /* the phone crop is 15 cells wide */
-      .art { --u: calc(100vw / 960); --x0: 960; height: calc(var(--u) * 1088); }
+      :root { --cols: 15; } /* the right-hand half */
+      .art { --x0: 960; height: calc(var(--u) * 1088); }
       .title {
         position: static;
         margin: clamp(30px, 9vw, 60px) var(--pad) 0;
