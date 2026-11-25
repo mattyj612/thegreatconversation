@@ -433,6 +433,51 @@
       margin-bottom: calc(var(--hang, 0) * var(--k) * -1px);
     }
 
+    /* ---------- MAKERS (the groups behind the event) ----------
+       Every mark is white and sits in a box of the same height; --s evens out how big each one looks. */
+    .makers {
+      position: relative;
+      z-index: 1;
+      padding: 0 0 var(--gap);
+    }
+    .makers-row {
+      list-style: none;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: clamp(26px, 4vw, 40px) clamp(12px, 2vw, 24px);
+    }
+    .maker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(8px, 0.9vw, 11px);
+      text-align: center;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .maker:hover { opacity: 0.7; }
+    .maker:focus-visible { outline: 2px solid var(--fg); outline-offset: 8px; }
+    .maker-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: clamp(30px, 2.6vw, 36px);
+    }
+    .maker-mark img { display: block; height: calc(100% * var(--s, 1)); width: auto; }
+    .maker-name {
+      font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+    }
+    @media (max-width: 820px) {
+      .makers-row { grid-template-columns: repeat(6, 1fr); }
+      .makers-row li { grid-column: span 2; }
+      .makers-row li:nth-child(4) { grid-column: 2 / span 2; }
+    }
+
     /* ---------- FOOTER ---------- */
     footer {
       position: relative;
@@ -727,6 +772,36 @@
         <img src="/sponsors/positive-sum-full.png" alt="Positive Sum" style="--w:546; --hang:54">
         <img src="/sponsors/colossus.svg" alt="Colossus" style="--w:410">
       </div>
+    </div>
+  </section>
+
+  <!-- ============ MAKERS ============
+       Marks are adapted in white from each group's own; Hidden Rivers is the backpack from its logo. -->
+  <section class="makers" aria-labelledby="makers-label">
+    <div class="wrap">
+      <p class="sponsor-label" id="makers-label">Created by the people who brought you</p>
+      <ul class="makers-row">
+        <li><a class="maker" href="https://thetorontosociety.com/" target="_blank" rel="noopener">
+          <span class="maker-mark"><img src="/makers/toronto-society.png" width="347" height="392" alt="" style="--s:1"></span>
+          <span class="maker-name">The Toronto Society</span>
+        </a></li>
+        <li><a class="maker" href="https://www.hiddenrivers.ca/" target="_blank" rel="noopener">
+          <span class="maker-mark"><img src="/makers/hidden-rivers.svg" width="420" height="412" alt="" style="--s:1.06"></span>
+          <span class="maker-name">Hidden Rivers</span>
+        </a></li>
+        <li><a class="maker" href="https://wygo.world/" target="_blank" rel="noopener">
+          <span class="maker-mark"><img src="/makers/wygo.svg" width="41" height="41" alt="" style="--s:0.9"></span>
+          <span class="maker-name">Wygo</span>
+        </a></li>
+        <li><a class="maker" href="https://irid.space/" target="_blank" rel="noopener">
+          <span class="maker-mark"><img src="/makers/irid.svg" width="699" height="427" alt="" style="--s:0.86"></span>
+          <span class="maker-name">irid</span>
+        </a></li>
+        <li><a class="maker" href="https://socratica.info/" target="_blank" rel="noopener">
+          <span class="maker-mark"><img src="/makers/socratica.svg" width="161" height="159" alt="" style="--s:1"></span>
+          <span class="maker-name">Socratica</span>
+        </a></li>
+      </ul>
     </div>
   </section>
 
