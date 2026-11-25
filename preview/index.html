@@ -332,6 +332,54 @@
       max-width: 42ch;
       margin: 0;
     }
+    /* email sign-up under the closing line */
+    .signup { margin-top: clamp(26px, 3.4vw, 44px); max-width: 540px; }
+    .signup-label { display: block; margin-bottom: clamp(12px, 1.4vw, 16px); }
+    .signup-bar {
+      display: flex;
+      background: var(--blue);
+      box-shadow: inset 0 0 0 1.5px var(--fg);
+    }
+    .signup-bar:focus-within { outline: 2px solid var(--fg); outline-offset: 3px; }
+    .signup-bar input,
+    .signup-bar button {
+      font: inherit;
+      /* 16px at least, so iPhones don't zoom in on the field */
+      font-size: clamp(1rem, 1.4vw, 1.08rem);
+      letter-spacing: -0.015em;
+      border: 0;
+      border-radius: 0;
+      margin: 0;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .signup-bar input {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 18px;
+      background: transparent;
+      color: var(--fg);
+    }
+    .signup-bar input::placeholder { color: var(--muted); opacity: 1; }
+    .signup-bar input:-webkit-autofill {
+      -webkit-text-fill-color: var(--fg);
+      box-shadow: inset 0 0 0 1.5px var(--fg), inset 0 0 0 100px var(--blue);
+    }
+    .signup-bar button {
+      flex: none;
+      padding: 14px 20px;
+      background: var(--fg);
+      color: var(--blue);
+      font-weight: 600;
+      box-shadow: inset 0 0 0 1.5px var(--fg);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .signup-bar button:hover,
+    .signup-bar button:focus-visible { background: var(--ink); color: var(--fg); }
+    .signup-note { font-size: clamp(0.92rem, 1.3vw, 1.02rem); letter-spacing: -0.015em; }
+    .signup-note:not(:empty) { margin-top: 12px; }
+
     /* same gap as /retro's Next Steps text above its team photo */
     .wrap + .closing-figure { margin-top: clamp(36px, 6vw, 80px); }
 
@@ -646,6 +694,16 @@
   <section class="band" id="team">
     <div class="wrap">
       <p class="next-msg">Planning is now underway for The Great Conversation&nbsp;II, as part of Toronto Tech Week 2027. We look forward to being in dialogue again soon.</p>
+      <!-- TODO: connect to a mailing list. Until then nothing typed here is sent or stored
+           (the input has no name, so it can't end up in the address bar either). -->
+      <form class="signup" data-signup novalidate>
+        <label class="body-copy signup-label" for="signup-email">To receive occasional updates on our goings-on.</label>
+        <div class="signup-bar">
+          <input id="signup-email" type="email" required autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="Email address" aria-describedby="signup-note">
+          <button type="submit">Sign up</button>
+        </div>
+        <p class="signup-note" id="signup-note" role="status"></p>
+      </form>
     </div>
     <figure class="closing-figure">
       <img src="/photos/team_photo.jpg" alt="The organizing team together" loading="lazy">
@@ -863,6 +921,22 @@
     }
     new IntersectionObserver(function (e) { visible = e[0].isIntersecting; update(); }).observe(art);
     document.addEventListener('visibilitychange', update);
+  })();
+</script>
+<script>
+  // Email sign-up: checks the address, but there is no mailing list behind it yet.
+  (function () {
+    var form = document.querySelector('[data-signup]');
+    if (!form) return;
+    var input = form.querySelector('input'), note = form.querySelector('.signup-note');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var ok = input.checkValidity();
+      input.setAttribute('aria-invalid', String(!ok));
+      note.textContent = ok ? "Sign-ups aren't open yet. Please check back soon." : 'Please enter a valid email address.';
+      if (!ok) input.focus();
+    });
+    input.addEventListener('input', function () { note.textContent = ''; input.removeAttribute('aria-invalid'); });
   })();
 </script>
 </body>
