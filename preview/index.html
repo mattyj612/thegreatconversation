@@ -700,7 +700,7 @@
         <label class="body-copy signup-label" for="signup-email">To receive occasional updates on our goings-on.</label>
         <div class="signup-bar">
           <input id="signup-email" type="email" required autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="Email address" aria-describedby="signup-note">
-          <button type="submit">Sign up</button>
+          <button type="submit">Subscribe</button>
         </div>
         <p class="signup-note" id="signup-note" role="status"></p>
       </form>
@@ -933,7 +933,7 @@
       e.preventDefault();
       var ok = input.checkValidity();
       input.setAttribute('aria-invalid', String(!ok));
-      note.textContent = ok ? "Sign-ups aren't open yet. Please check back soon." : 'Please enter a valid email address.';
+      note.textContent = ok ? "Subscriptions aren't open yet. Please check back soon." : 'Please enter a valid email address.';
       if (!ok) input.focus();
     });
     input.addEventListener('input', function () { note.textContent = ''; input.removeAttribute('aria-invalid'); });
