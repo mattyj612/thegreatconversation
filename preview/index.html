@@ -100,10 +100,12 @@
     a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
 
     /* ---------- HEADER: collage banner, title set on its open blue corner ---------- */
+    /* the art is 20 cells tall; the text section starts 18 cells down, so its loose
+       bottom edge runs on into that section */
     .masthead {
       position: relative;
       z-index: 1;
-      overflow: hidden;
+      margin-bottom: calc(var(--cell) * -2);
     }
     .masthead-bg img {
       display: block;
@@ -466,6 +468,8 @@
     /* phones: the right-hand half of the art, with the title underneath */
     @media (max-width: 699px) {
       :root { --grid-w: 200vw; } /* the phone crop is 15 cells wide */
+      .masthead { margin-bottom: 0; }
+      .masthead-bg img { margin-bottom: calc(var(--cell) * -1); }
       .title {
         position: static;
         margin: clamp(30px, 9vw, 60px) var(--pad) 0;
@@ -489,8 +493,8 @@
   <!-- ============ MASTHEAD ============ -->
   <header class="masthead">
     <picture class="masthead-bg">
-      <source media="(max-width: 699px)" srcset="/photos/banner-art-mobile.webp" width="1200" height="1360">
-      <img src="/photos/banner-art.webp" srcset="/photos/banner-art-1920.webp 1920w, /photos/banner-art.webp 2880w" sizes="100vw" width="2880" height="1632" alt="" fetchpriority="high">
+      <source media="(max-width: 699px)" srcset="/photos/banner-loose-mobile.webp" width="1200" height="1600">
+      <img src="/photos/banner-loose.webp" srcset="/photos/banner-loose-1920.webp 1920w, /photos/banner-loose.webp 2880w" sizes="100vw" width="2880" height="1920" alt="" fetchpriority="high">
     </picture>
     <h1 class="title">
       <span class="ln">The</span>
