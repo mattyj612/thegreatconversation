@@ -42,13 +42,25 @@
       --ink: #07070a;
       --fg: #f6f6f8;
       --muted: rgba(246,246,248,0.72);
-      --grid: rgba(174,190,255,0.16);
-      --cell: calc(100vw / 30); /* the banner art is 30 columns wide, so its grid runs on into the page */
+      /* the banner art's own grid: 30 cells across, each line 1/1200 of the width, 10% white
+         laid twice. It is drawn once, behind everything, and the art is transparent over it. */
+      --grid-w: 100vw;
+      --cell: calc(var(--grid-w) / 30);
+      --half: calc(var(--grid-w) / 2400);   /* half a line */
+      --soft: 0.5px;                        /* one screen pixel of smoothing at the line's edges */
+      --ln: rgba(255,255,255,0.193);
+      --stops: var(--ln) 0, var(--ln) calc(var(--half) - var(--soft) / 2),
+               transparent calc(var(--half) + var(--soft) / 2), transparent calc(var(--cell) - var(--half) - var(--soft) / 2),
+               var(--ln) calc(var(--cell) - var(--half) + var(--soft) / 2), var(--ln) var(--cell);
+      --grid: repeating-linear-gradient(to right, var(--stops)), repeating-linear-gradient(to bottom, var(--stops));
       --maxw: 1180px;
       --pad: clamp(20px, 5vw, 72px);
       /* one vertical rhythm between every block on the page */
       --gap: clamp(40px, 6vw, 84px);
     }
+
+    @media (max-resolution: 1.25dppx) { :root { --soft: 1px; } }
+    @media (min-resolution: 2.5dppx) { :root { --soft: 0.34px; } }
 
     * { box-sizing: border-box; cursor: url('/cursor.svg') 28 28, auto; }
     ::selection { background: #fff; color: var(--blue); }
@@ -66,17 +78,15 @@
     }
     body { position: relative; overflow-x: hidden; }
 
-    /* faint engineering grid over the blue field — scrolls with the page */
+    /* the engineering grid: one grid runs under the banner and down the whole page */
     body::before {
       content: "";
       position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size: var(--cell) var(--cell);
+      background-image: var(--grid);
+      mix-blend-mode: plus-lighter;
     }
 
     .wrap {
@@ -340,10 +350,7 @@
       outline: none;
       color: var(--fg);
       background-color: var(--blue);
-      background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size: var(--cell) var(--cell);
+      background-image: var(--grid);
       background-attachment: local;
       box-shadow: 0 30px 90px rgba(0,0,0,0.5);
       overflow-y: auto;
@@ -458,7 +465,7 @@
 
     /* phones: the right-hand half of the art, with the title underneath */
     @media (max-width: 699px) {
-      :root { --cell: calc(100vw / 7.5); }
+      :root { --grid-w: 200vw; } /* the phone crop is 15 cells wide */
       .title {
         position: static;
         margin: clamp(30px, 9vw, 60px) var(--pad) 0;
@@ -482,8 +489,8 @@
   <!-- ============ MASTHEAD ============ -->
   <header class="masthead">
     <picture class="masthead-bg">
-      <source media="(max-width: 699px)" srcset="/photos/banner-mobile.webp" width="1200" height="1350">
-      <img src="/photos/banner.webp" width="2880" height="1620" alt="" fetchpriority="high">
+      <source media="(max-width: 699px)" srcset="/photos/banner-art-mobile.webp" width="1200" height="1360">
+      <img src="/photos/banner-art.webp" srcset="/photos/banner-art-1920.webp 1920w, /photos/banner-art.webp 2880w" sizes="100vw" width="2880" height="1632" alt="" fetchpriority="high">
     </picture>
     <h1 class="title">
       <span class="ln">The</span>
