@@ -101,7 +101,8 @@
       z-index: 1;
     }
     /* The collage in layers, drawn in the art file's own units (1920 across). The squares are
-       separate so they can pop in and out; "guest" squares start hidden. */
+       separate so they can pop in and out; "guest" squares start hidden. Each square fills three
+       whole cells (192 units), so neighbours touch with no blue between them. */
     .art {
       --x0: 0;
       position: relative;
@@ -113,8 +114,8 @@
       position: absolute;
       left: calc((var(--x) - var(--x0)) * var(--u));
       top: calc(var(--y) * var(--u));
-      width: calc(var(--w, 190) * var(--u));
-      height: calc(var(--h, 190) * var(--u));
+      width: calc(var(--w, 192) * var(--u));
+      height: calc(var(--h, 192) * var(--u));
       background: var(--c, none);
       transition: opacity 0.05s linear;
     }
@@ -428,35 +429,35 @@
   <!-- ============ MASTHEAD ============ -->
   <header class="masthead">
     <div class="art" aria-hidden="true">
-      <i class="sq" style="--x:961;--y:513;--c:#35C391"></i>
-      <i class="sq" style="--x:769;--y:705;--c:#F0428B"></i>
-      <i class="sq" style="--x:1793;--y:577;--c:#F0428B"></i>
-      <i class="sq" style="--x:961;--y:193;--c:#FC4F16"></i>
-      <i class="sq" style="--x:449;--y:897;--c:#70D4D8"></i>
-      <i class="sq" style="--x:257;--y:705;--c:#FC4F16"></i>
-      <i class="sq" style="--x:-127;--y:513;--c:#FFA6EF"></i>
-      <i class="sq guest off" style="--x:1537;--y:65;--c:#70D4D8"></i>
-      <i class="sq guest off" style="--x:1025;--y:1;--c:#F0428B"></i>
-      <i class="sq guest off" style="--x:1089;--y:833;--c:#FC4F16"></i>
-      <i class="sq guest off" style="--x:65;--y:705;--c:#EEB816"></i>
-      <i class="sq guest off" style="--x:513;--y:1;--c:#35C391"></i>
-      <i class="sq guest off" style="--x:321;--y:513;--c:#7BAEFF"></i>
-      <img class="sq guest off" src="/photos/banner/rock.webp" alt="" draggable="false" style="--x:705;--y:513">
+      <i class="sq" style="--x:960;--y:512;--c:#35C391"></i>
+      <i class="sq" style="--x:768;--y:704;--c:#F0428B"></i>
+      <i class="sq" style="--x:1792;--y:576;--c:#F0428B"></i>
+      <i class="sq" style="--x:960;--y:192;--c:#FC4F16"></i>
+      <i class="sq" style="--x:448;--y:896;--c:#70D4D8"></i>
+      <i class="sq" style="--x:256;--y:704;--c:#FC4F16"></i>
+      <i class="sq" style="--x:-128;--y:512;--c:#FFA6EF"></i>
+      <i class="sq guest off" style="--x:1536;--y:64;--c:#70D4D8"></i>
+      <i class="sq guest off" style="--x:1024;--y:0;--c:#F0428B"></i>
+      <i class="sq guest off" style="--x:1088;--y:832;--c:#FC4F16"></i>
+      <i class="sq guest off" style="--x:64;--y:704;--c:#EEB816"></i>
+      <i class="sq guest off" style="--x:512;--y:0;--c:#35C391"></i>
+      <i class="sq guest off" style="--x:320;--y:512;--c:#7BAEFF"></i>
+      <img class="sq guest off" src="/photos/banner/rock.webp" alt="" draggable="false" style="--x:704;--y:512">
       <img src="/photos/banner/train.webp" alt="" draggable="false" style="--x:1020;--y:0;--w:900;--h:680" fetchpriority="high">
-      <img class="sq" src="/photos/banner/rock.webp" alt="" draggable="false" style="--x:961;--y:897">
-      <img class="sq" src="/photos/banner/scroll-lime.webp" alt="" draggable="false" style="--x:1283;--y:386">
-      <img class="sq" src="/photos/banner/scroll-yellow.webp" alt="" draggable="false" style="--x:1473;--y:576">
-      <img class="sq" src="/photos/banner/cart.webp" alt="" draggable="false" style="--x:65;--y:897">
-      <i class="sq guest off" style="--x:1729;--y:449;--c:#ADC335"></i>
+      <img class="sq" src="/photos/banner/rock.webp" alt="" draggable="false" style="--x:960;--y:896">
+      <img class="sq" src="/photos/banner/scroll-lime.webp" alt="" draggable="false" style="--x:1280;--y:384">
+      <img class="sq" src="/photos/banner/scroll-yellow.webp" alt="" draggable="false" style="--x:1472;--y:576">
+      <img class="sq" src="/photos/banner/cart.webp" alt="" draggable="false" style="--x:64;--y:896">
+      <i class="sq guest off" style="--x:1728;--y:448;--c:#ADC335"></i>
       <img src="/photos/banner/oxen.webp" alt="" draggable="false" style="--x:1190;--y:590;--w:730;--h:520">
-      <img class="sq" src="/photos/banner/chip.webp" alt="" draggable="false" style="--x:1281;--y:897">
-      <img class="sq" src="/photos/banner/press-top.webp" alt="" draggable="false" style="--x:1665;--y:65">
-      <img class="sq" src="/photos/banner/press-bottom.webp" alt="" draggable="false" style="--x:1760;--y:255;--w:160">
-      <img class="sq guest off" src="/photos/banner/chip.webp" alt="" draggable="false" style="--x:1345;--y:705">
-      <i class="sq" style="--x:1665;--y:833;--c:#70D4D8"></i>
-      <i class="sq" style="--x:-63;--y:-127;--c:#70D4D8"></i>
-      <img class="sq" src="/photos/banner/scroll-blue.webp" alt="" draggable="false" style="--x:705;--y:1">
-      <img class="sq" src="/photos/banner/engine.webp" alt="" draggable="false" style="--x:513;--y:577">
+      <img class="sq" src="/photos/banner/chip.webp" alt="" draggable="false" style="--x:1280;--y:896">
+      <img class="sq" src="/photos/banner/press-top.webp" alt="" draggable="false" style="--x:1664;--y:64">
+      <img class="sq" src="/photos/banner/press-bottom.webp" alt="" draggable="false" style="--x:1760;--y:256;--w:160">
+      <img class="sq guest off" src="/photos/banner/chip.webp" alt="" draggable="false" style="--x:1344;--y:704">
+      <i class="sq" style="--x:1664;--y:832;--c:#70D4D8"></i>
+      <i class="sq" style="--x:-64;--y:-128;--c:#70D4D8"></i>
+      <img class="sq" src="/photos/banner/scroll-blue.webp" alt="" draggable="false" style="--x:704;--y:0">
+      <img class="sq" src="/photos/banner/engine.webp" alt="" draggable="false" style="--x:512;--y:576">
       <img src="/photos/banner/telegraph.webp" alt="" draggable="false" style="--x:360;--y:851;--w:590;--h:330">
     </div>
     <h1 class="title">
