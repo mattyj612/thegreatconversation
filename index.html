@@ -474,8 +474,9 @@
     html.letter-open { overflow: hidden; }
 
     /* ---------- SPONSOR LOGOS ----------
-       Logos were cut from the playbill at one common scale, so a single factor (--k)
-       keeps their relative sizes exactly as designed there. --w is each file's pixel width. */
+       --w is each logo's width at the playbill's scale, so a single factor (--k) keeps
+       their relative sizes exactly as designed there. --hang is how far a logo is let down past
+       the row for what hangs under its lettering (Positive Sum), so the names share a baseline. */
     .sponsor-strip {
       position: relative;
       z-index: 1;
@@ -505,6 +506,7 @@
       display: block;
       width: calc(var(--w) * var(--k) * 1px);
       height: auto;
+      margin-bottom: calc(var(--hang, 0) * var(--k) * -1px);
     }
 
     /* ---------- FOOTER ---------- */
@@ -773,14 +775,14 @@
     <div class="wrap">
       <p class="sponsor-label">Supported by</p>
       <div class="logo-row">
-        <img src="/sponsors/notion.png" alt="Notion" style="--w:612">
-        <img src="/sponsors/ambition.png" alt="Ambition" style="--w:834">
-        <img src="/sponsors/cursor.png" alt="Cursor" style="--w:696">
+        <img src="/sponsors/notion.svg" alt="Notion" style="--w:596">
+        <img src="/sponsors/ambition.svg" alt="Ambition" style="--w:818">
+        <img src="/sponsors/cursor.svg" alt="Cursor" style="--w:679">
       </div>
       <div class="logo-row">
-        <img src="/sponsors/ambrook.png" alt="Ambrook" style="--w:497">
-        <img src="/sponsors/positive-sum.png" alt="Positive Sum" style="--w:562">
-        <img src="/sponsors/colossus.png" alt="Colossus" style="--w:426">
+        <img src="/sponsors/ambrook-full.png" alt="Ambrook" style="--w:479">
+        <img src="/sponsors/positive-sum-full.png" alt="Positive Sum" style="--w:546; --hang:54">
+        <img src="/sponsors/colossus.svg" alt="Colossus" style="--w:410">
       </div>
     </div>
   </section>
