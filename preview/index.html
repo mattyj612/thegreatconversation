@@ -414,7 +414,7 @@
       letter-spacing: 0.02em;
       text-transform: uppercase;
       text-align: center;
-      color: var(--muted);
+      color: var(--fg);
       margin: 0 0 clamp(22px, 3vw, 34px);
     }
     .logo-row {
@@ -438,7 +438,7 @@
     .makers {
       position: relative;
       z-index: 1;
-      padding: 0 0 var(--gap);
+      padding: var(--gap) 0 0;
     }
     .makers-row {
       list-style: none;
@@ -494,7 +494,6 @@
       font-size: clamp(0.8rem, 1.5vw, 0.98rem);
       letter-spacing: -0.01em;
     }
-    .footer-inner .center { color: var(--muted); }
 
     /* phones: the right-hand half of the art, with the title underneath */
     @media (max-width: 699px) {
@@ -758,28 +757,11 @@
     </figure>
   </section>
 
-  <!-- ============ SPONSORS ============ -->
-  <section class="sponsor-strip" aria-label="Sponsors">
-    <div class="wrap">
-      <p class="sponsor-label">Supported by</p>
-      <div class="logo-row">
-        <img src="/sponsors/notion.svg?v=2" alt="Notion" style="--w:596">
-        <img src="/sponsors/ambition.svg" alt="Ambition" style="--w:818">
-        <img src="/sponsors/cursor.svg" alt="Cursor" style="--w:679">
-      </div>
-      <div class="logo-row">
-        <img src="/sponsors/ambrook-full.png" alt="Ambrook" style="--w:479">
-        <img src="/sponsors/positive-sum-full.png" alt="Positive Sum" style="--w:546; --hang:54">
-        <img src="/sponsors/colossus.svg" alt="Colossus" style="--w:410">
-      </div>
-    </div>
-  </section>
-
   <!-- ============ MAKERS ============
        Marks are adapted in white from each group's own; Hidden Rivers is the backpack from its logo. -->
   <section class="makers" aria-labelledby="makers-label">
     <div class="wrap">
-      <p class="sponsor-label" id="makers-label">Created by the people who brought you</p>
+      <p class="sponsor-label" id="makers-label">By the people who brought you</p>
       <ul class="makers-row">
         <li><a class="maker" href="https://thetorontosociety.com/" target="_blank" rel="noopener">
           <span class="maker-mark"><img src="/makers/toronto-society.png" width="347" height="392" alt="" style="--s:1"></span>
@@ -802,6 +784,23 @@
           <span class="maker-name">Socratica</span>
         </a></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ============ SPONSORS ============ -->
+  <section class="sponsor-strip" aria-label="Sponsors">
+    <div class="wrap">
+      <p class="sponsor-label">Supported by</p>
+      <div class="logo-row">
+        <img src="/sponsors/notion.svg?v=2" alt="Notion" style="--w:596">
+        <img src="/sponsors/ambition.svg" alt="Ambition" style="--w:818">
+        <img src="/sponsors/cursor.svg" alt="Cursor" style="--w:679">
+      </div>
+      <div class="logo-row">
+        <img src="/sponsors/ambrook-full.png" alt="Ambrook" style="--w:479">
+        <img src="/sponsors/positive-sum-full.png" alt="Positive Sum" style="--w:546; --hang:54">
+        <img src="/sponsors/colossus.svg" alt="Colossus" style="--w:410">
+      </div>
     </div>
   </section>
 
